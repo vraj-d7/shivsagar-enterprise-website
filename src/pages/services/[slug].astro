@@ -1,0 +1,106 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Icon from '../../components/Icon.astro';
+import Faq from '../../components/Faq.astro';
+import Enquiry from '../../components/Enquiry.astro';
+import { services, type Service } from '../../data/services';
+
+export function getStaticPaths() {
+	return services.map((s) => ({ params: { slug: s.slug }, props: { s } }));
+}
+interface Props { s: Service }
+const { s } = Astro.props;
+const others = services.filter((o) => o.slug !== s.slug);
+---
+<Layout title={s.title} description={s.intro[0].slice(0, 158)}>
+	<PageHero crumb={s.title} eyebrow={s.title}>{s.headline}</PageHero>
+
+	<section class="section">
+		<div class="wrap detail">
+			<div class="main">
+				<div class="intro reveal">{s.intro.map((p) => <p>{p}</p>)}</div>
+				{s.sections?.map((sec) => (
+					<div class="block reveal"><h2>{sec.title}</h2><p>{sec.body}</p></div>
+				))}
+
+				<div class="block reveal">
+					<h2>{s.includesTitle}</h2>
+					<ul class="checks">{s.includes.map((i) => <li><Icon name="check" size={16} stroke={2.6} />{i}</li>)}</ul>
+				</div>
+
+				{s.features && (
+					<div class="features reveal">
+						{s.features.map((f) => <div><h3>{f.title}</h3><p>{f.body}</p></div>)}
+					</div>
+				)}
+
+				<div class="block why reveal">
+					<h2>{s.whyTitle}</h2>
+					<ul class="tags">{s.why.map((w) => <li>{w}</li>)}</ul>
+					{s.whyBody && <p>{s.whyBody}</p>}
+				</div>
+
+				{s.industries && (
+					<div class="block reveal">
+						<h2>Industries we serve</h2>
+						<ul class="tags light">{s.industries.map((i) => <li>{i}</li>)}</ul>
+					</div>
+				)}
+			</div>
+
+			<aside class="side">
+				<div class="box quote">
+					<b>Get a quote</b>
+					<p>Send a drawing, sample or photo with the material and quantity you need.</p>
+					<a href="#enquiry" class="btn btn-amber">Request a quote <Icon name="arrow" stroke={2.4} /></a>
+					<a class="call" href="tel:+919825329102"><Icon name="phone" size={16} />+91 98253 29102</a>
+				</div>
+				<nav class="box list" aria-label="Other services">
+					<b>All services</b>
+					<a href={`/services/${s.slug}/`} aria-current="page">{s.title}</a>
+					{others.map((o) => <a href={`/services/${o.slug}/`}>{o.title}</a>)}
+				</nav>
+			</aside>
+		</div>
+	</section>
+
+	<div class="faq-bg"><Faq items={s.faq} title="General questions" eyebrow={s.title} /></div>
+	<div style="height:100px" aria-hidden="true"></div>
+	<Enquiry heading={`Talk to us about ${s.title.toLowerCase()}.`} />
+</Layout>
+
+<style>
+	.page-hero :global(h1) { font-size: clamp(32px, 4.4vw, 54px); }
+	.detail { display: grid; grid-template-columns: 1fr 340px; gap: 48px; align-items: start; }
+	.intro p { font-size: 19px; color: var(--ink); margin: 0 0 16px; }
+	.intro p + p { font-size: 17px; color: var(--ink-2); }
+	.block { margin-top: 44px; }
+	.block h2 { font-size: clamp(24px, 2.8vw, 30px); margin: 0 0 16px; }
+	.block p { color: var(--ink-2); margin: 16px 0 0; }
+	.checks { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+	.checks li { display: flex; gap: 10px; align-items: center; background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; font-weight: 600; font-size: 15px; }
+	.checks :global(svg) { color: var(--blue); flex: none; }
+	.features { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 44px; }
+	.features div { background: var(--navy); color: var(--on-navy-2); border-radius: var(--radius); padding: 26px; }
+	.features h3 { color: #fff; font-size: 18px; }
+	.features p { margin: 8px 0 0; font-size: 15px; }
+	.tags { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+	.tags li { background: var(--navy); color: #fff; border-radius: 999px; padding: 8px 16px; font-weight: 600; font-size: 14px; }
+	.tags.light li { background: var(--paper); color: var(--ink); border: 1px solid var(--line); }
+	.side { position: sticky; top: 96px; display: grid; gap: 14px; }
+	.box { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+	.box b { display: block; font-size: 18px; }
+	.quote { background: var(--amber); border-color: var(--amber); color: var(--navy); }
+	.quote p { margin: 8px 0 18px; color: #4a3a05; font-size: 15px; }
+	.quote .btn { width: 100%; justify-content: center; background: var(--navy); color: #fff; }
+	.call { display: flex; gap: 8px; align-items: center; justify-content: center; margin-top: 14px; font-weight: 700; }
+	.list { display: grid; gap: 2px; }
+	.list b { margin-bottom: 10px; }
+	.list a { padding: 9px 12px; border-radius: 10px; font-weight: 600; font-size: 14.5px; color: var(--ink-2); }
+	.list a:hover { background: var(--bg); color: var(--ink); }
+	.list a[aria-current="page"] { background: var(--blue-soft); color: var(--blue); }
+	.faq-bg { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+	@media (max-width: 1050px) { .detail { grid-template-columns: 1fr; } .side { position: static; } }
+	@media (max-width: 600px) { .checks, .features { grid-template-columns: 1fr; } .intro p { font-size: 17.5px; } }
+</style>

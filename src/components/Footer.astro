@@ -1,5 +1,6 @@
 ---
-import { site, services, industries } from '../data/site';
+import { site, industries } from '../data/site';
+import { services } from '../data/services';
 const year = new Date().getFullYear();
 ---
 <footer>
@@ -7,15 +8,15 @@ const year = new Date().getFullYear();
 		<div class="foot">
 			<div>
 				<b class="fname">{site.name}</b>
-				<p>Precision plastic injection-moulded and rubber components. Serving Indian industry since {site.since}.</p>
+				<p>A trusted Indian manufacturer of precision plastic injection-moulded and rubber components, serving industries since {site.since}.</p>
 			</div>
 			<div>
 				<h4>Services</h4>
-				<ul>{services.slice(0, 4).map((s) => <li><a href={`/services/#${s.slug}`}>{s.title}</a></li>)}</ul>
+				<ul>{services.map((s) => <li><a href={`/services/${s.slug}/`}>{s.title}</a></li>)}</ul>
 			</div>
 			<div>
 				<h4>Industries</h4>
-				<ul>{industries.slice(0, 5).map((i) => <li><a href={`/components/#${i.id}`}>{i.tab}</a></li>)}</ul>
+				<ul>{industries.map((i) => <li><a href={`/industries/#${i.id}`}>{i.tab}</a></li>)}</ul>
 			</div>
 			<div>
 				<h4>Contact</h4>
@@ -28,7 +29,7 @@ const year = new Date().getFullYear();
 		</div>
 		<div class="foot-bottom">
 			<span>© {year} {site.name}. All rights reserved.</span>
-			<span>{site.tagline}</span>
+			<span><a href="/about/">About</a> · <a href="/blog/">Blog</a> · <a href="/terms/">Terms &amp; conditions</a></span>
 		</div>
 	</div>
 </footer>

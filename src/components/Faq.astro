@@ -1,0 +1,41 @@
+---
+import Icon from './Icon.astro';
+interface Props { items: { q: string; a: string }[]; title?: string; eyebrow?: string; lede?: string }
+const { items, title = 'Frequently asked questions', eyebrow = 'FAQ', lede } = Astro.props;
+const ld = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: items.map((i) => ({ '@type': 'Question', name: i.q, acceptedAnswer: { '@type': 'Answer', text: i.a } })),
+};
+---
+<section class="section faq-sec">
+	<div class="wrap faq-grid">
+		<div class="reveal">
+			<span class="eyebrow">{eyebrow}</span>
+			<h2>{title}</h2>
+			{lede && <p class="lede">{lede}</p>}
+		</div>
+		<div class="faq reveal">
+			{items.map((i, n) => (
+				<details open={n === 0}>
+					<summary>{i.q}<Icon name="plus" size={18} stroke={2.4} /></summary>
+					<p>{i.a}</p>
+				</details>
+			))}
+		</div>
+	</div>
+	<script type="application/ld+json" set:html={JSON.stringify(ld)} />
+</section>
+
+<style>
+	.faq-grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 56px; align-items: start; }
+	.faq { display: grid; gap: 10px; }
+	details { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; }
+	details[open] { border-color: var(--blue); }
+	summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 16px; align-items: center; padding: 18px 22px; font-weight: 700; font-size: 16.5px; }
+	summary::-webkit-details-marker { display: none; }
+	summary :global(svg) { flex: none; color: var(--blue); transition: transform .25s; }
+	details[open] summary :global(svg) { transform: rotate(45deg); }
+	details p { margin: 0; padding: 0 22px 20px; color: var(--ink-2); }
+	@media (max-width: 1050px) { .faq-grid { grid-template-columns: 1fr; gap: 28px; } }
+</style>

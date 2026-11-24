@@ -1,0 +1,35 @@
+---
+import { capacity } from '../data/site';
+---
+<section class="section">
+	<div class="wrap cap">
+		<div class="reveal">
+			<span class="eyebrow">Capacity</span>
+			<h2>{capacity.title}</h2>
+			<p class="lede">{capacity.lead}</p>
+			<p class="body">{capacity.body}</p>
+			<div class="big"><b>40,000<em>+</em></b><span>plastic parts a day</span><b>5,000<em>+</em></b><span>rubber parts a day</span></div>
+		</div>
+		<div class="cap-grid">
+			{capacity.points.map((p, i) => (
+				<div class="cp reveal"><span class="k">{String(i + 1).padStart(2, '0')}</span><h3>{p.title}</h3><p>{p.text}</p></div>
+			))}
+		</div>
+	</div>
+</section>
+
+<style>
+	.cap { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; align-items: start; }
+	.body { color: var(--ink-2); margin: 16px 0 0; max-width: 560px; }
+	.big { display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; align-items: baseline; margin-top: 28px; }
+	.big b { font-size: 34px; font-weight: 800; letter-spacing: -.03em; }
+	.big em { font-style: normal; color: var(--amber); }
+	.big span { color: var(--ink-2); font-size: 15px; }
+	.cap-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+	.cp { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 24px; }
+	.cp .k { font-family: var(--mono); font-weight: 700; color: var(--blue); font-size: 13px; }
+	.cp h3 { font-size: 18px; margin-top: 12px; }
+	.cp p { color: var(--ink-2); font-size: 14.5px; margin: 8px 0 0; }
+	@media (max-width: 1050px) { .cap { grid-template-columns: 1fr; gap: 32px; } }
+	@media (max-width: 600px) { .cap-grid { grid-template-columns: 1fr; } }
+</style>

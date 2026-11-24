@@ -1,0 +1,73 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import PostCard from '../../components/PostCard.astro';
+import Icon from '../../components/Icon.astro';
+import { getPosts, excerpt, fmtDate, type Post } from '../../data/blog';
+
+export async function getStaticPaths() {
+	const posts = await getPosts();
+	return posts.map((post) => ({ params: { slug: post.id }, props: { post, posts } }));
+}
+interface Props { post: Post; posts: Post[] }
+const { post, posts } = Astro.props;
+const { Content } = await render(post);
+const more = posts.filter((p) => p.id !== post.id).sort((a, b) => Number(b.data.category === post.data.category) - Number(a.data.category === post.data.category)).slice(0, 3);
+---
+<Layout title={post.data.title} description={excerpt(post, 155)}>
+	<article>
+		<header class="page-hero">
+			<div class="wrap narrow">
+				<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><a href="/blog/">Blog</a></nav>
+				<p class="eyebrow" style="margin:28px 0 0">{post.data.category}</p>
+				<h1>{post.data.title}</h1>
+				<p class="meta"><time datetime={post.data.date.toISOString()}>{fmtDate(post.data.date)}</time></p>
+			</div>
+		</header>
+		<div class="wrap narrow body-wrap">
+			{post.data.image && <Image class="cover" src={post.data.image} alt="" widths={[700, 1100]} sizes="(max-width: 860px) 100vw, 820px" />}
+			<div class="prose"><Content /></div>
+			<div class="cta">
+				<div><b>Have a part in mind?</b><span>Send us a drawing or sample and we'll come back with a quote.</span></div>
+				<a href="/contact/" class="btn btn-amber">Get a quote <Icon name="arrow" stroke={2.4} /></a>
+			</div>
+		</div>
+	</article>
+
+	<section class="section more">
+		<div class="wrap">
+			<div class="head-row"><h2>More from the blog</h2><a href="/blog/" class="btn btn-line">All posts <Icon name="arrow" stroke={2.4} /></a></div>
+			<div class="grid">{more.map((p) => <PostCard post={p} />)}</div>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.narrow { max-width: 868px; }
+	.page-hero h1 { font-size: clamp(30px, 4.2vw, 48px); }
+	.meta { color: var(--on-navy-2); margin: 18px 0 0; font-size: 14px; }
+	.body-wrap { padding-top: 0; }
+	.body-wrap :global(.cover) { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; background: var(--blue-soft); border-radius: 20px; margin-top: -40px; position: relative; border: 1px solid var(--line); box-shadow: 0 30px 60px -40px rgba(15,42,74,.5); }
+	.prose { font-size: 17.5px; line-height: 1.75; color: var(--ink-2); padding: 40px 0 10px; }
+	.prose :global(h2) { font-size: clamp(22px, 2.6vw, 28px); color: var(--ink); margin: 44px 0 14px; }
+	.prose :global(h3) { font-size: 20px; color: var(--ink); margin: 32px 0 10px; }
+	.prose :global(p) { margin: 0 0 18px; }
+	.prose :global(strong) { color: var(--ink); }
+	.prose :global(ul), .prose :global(ol) { padding-left: 22px; margin: 0 0 20px; }
+	.prose :global(li) { margin: 6px 0; }
+	.prose :global(li::marker) { color: var(--blue); }
+	.prose :global(hr) { border: 0; border-top: 1px solid var(--line); margin: 36px 0; }
+	.prose :global(table) { width: 100%; border-collapse: collapse; margin: 0 0 24px; font-size: 15px; display: block; overflow-x: auto; }
+	.prose :global(th), .prose :global(td) { border: 1px solid var(--line); padding: 10px 12px; text-align: left; }
+	.prose :global(th) { background: var(--paper); color: var(--ink); }
+	.cta { display: flex; justify-content: space-between; align-items: center; gap: 20px; flex-wrap: wrap; background: var(--amber); color: var(--navy); border-radius: 18px; padding: 26px 28px; margin: 30px 0 0; }
+	.cta b { display: block; font-size: 20px; }
+	.cta span { color: #4a3a05; }
+	.cta .btn { background: var(--navy); color: #fff; }
+	.more { padding-top: 80px; }
+	.more h2 { margin: 0; font-size: clamp(26px, 3vw, 34px); }
+	.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+	@media (max-width: 1050px) { .grid { grid-template-columns: 1fr 1fr; } }
+	@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } .prose { font-size: 16.5px; } }
+</style>

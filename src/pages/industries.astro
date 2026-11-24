@@ -7,8 +7,8 @@ import Enquiry from '../components/Enquiry.astro';
 import Icon from '../components/Icon.astro';
 import { industries } from '../data/site';
 ---
-<Layout title="Components & materials" description="Plastic and rubber components for electric motors, pumps, conveyors, dairy, chemical and automotive industries — in PP, HDPE, Nylon, ABS, PTFE, PVDF, EPDM and silicone.">
-	<PageHero crumb="Components" eyebrow="Components we make" lede="Fan blades, impellers, rollers, seals, gaskets and housings — made to your drawing or sample, in the material your application needs.">
+<Layout title="Industries & applications" description="Plastic and rubber components for electric motors, pumps, conveyors, dairy, chemical and automotive industries — in PP, HDPE, nylon, ABS, PBT, PTFE, PVDF, EPDM and silicone.">
+	<PageHero crumb="Industries" eyebrow="Industries & applications" lede="We take pride in the wide spectrum of industries we serve. Our moulded components are integral parts of equipment in many sectors — and by combining material expertise with application know-how, we tailor each part to its industry's requirements.">
 		Parts for the machines that <span>keep India running.</span>
 	</PageHero>
 
@@ -26,7 +26,7 @@ import { industries } from '../data/site';
 					<div class="ind-art"><IndustryArt art={ind.art} /></div>
 					<div class="ind-body">
 						<h2>{ind.title}</h2>
-						<p>{ind.intro}</p>
+						<p>{ind.body}</p>
 						<ul class="parts">{ind.parts.map((p) => <li>{p}</li>)}</ul>
 						<p class="mat">{ind.materials}</p>
 						<a class="ask" href="/contact/">Ask about a part like this <Icon name="arrow" size={16} stroke={2.4} /></a>
@@ -35,8 +35,8 @@ import { industries } from '../data/site';
 			))}
 			<div class="custom reveal">
 				<div>
-					<h2>Don't see your part?</h2>
-					<p>Most of what we make is custom. Send a drawing, a sample or a photo and we'll tell you how we'd make it.</p>
+					<h2>Don't see your industry?</h2>
+					<p>Whether your industry is listed or you have a unique application, we're equipped to deliver the right solution. Our engineering team studies the usage conditions and functional requirements of each part to recommend the best materials and design tweaks. If you have a special component that needs moulding, chances are we can develop and produce it.</p>
 				</div>
 				<a href="/contact/" class="btn btn-amber">Send your drawing <Icon name="arrow" stroke={2.4} /></a>
 			</div>
@@ -57,12 +57,13 @@ import { industries } from '../data/site';
 	.ind-panel { scroll-margin-top: 72px; } /* plus the 88px html scroll-padding: clears header + jump bar */
 	.mat-bg :global(#materials) { scroll-margin-top: 56px; }
 	.ind-body h2 { font-size: 28px; margin: 0; }
+	.ind-body > p:not(.mat) { font-size: 15.5px; }
 	.ask { display: inline-flex; gap: 8px; align-items: center; margin-top: 20px; font-weight: 700; color: var(--blue); }
 	.ask:hover { gap: 12px; }
 	.list .ind-panel:nth-child(even) .ind-art { order: 2; border-right: 0; border-left: 1px solid var(--line); }
 	.custom { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; background: var(--navy); color: var(--on-navy-2); border-radius: 20px; padding: 40px; }
 	.custom h2 { color: #fff; margin: 0; font-size: clamp(26px, 3vw, 34px); }
-	.custom p { margin: 10px 0 0; max-width: 560px; }
+	.custom p { margin: 10px 0 0; max-width: 720px; }
 	.mat-bg { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 	@media (max-width: 1050px) {
 		.list .ind-panel:nth-child(even) .ind-art { order: 0; border-left: 0; border-bottom: 1px solid var(--line); }

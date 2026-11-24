@@ -6,19 +6,27 @@ import Materials from '../components/Materials.astro';
 import Process from '../components/Process.astro';
 import Why from '../components/Why.astro';
 import Enquiry from '../components/Enquiry.astro';
-import { site, stats, services } from '../data/site';
+import Capacity from '../components/Capacity.astro';
+import Testimonials from '../components/Testimonials.astro';
+import Faq from '../components/Faq.astro';
+import PostCard from '../components/PostCard.astro';
+import { site, stats, faq } from '../data/site';
+import { services } from '../data/services';
+import { getPosts } from '../data/blog';
+const latest = (await getPosts()).slice(0, 3);
+const homeServices = services.slice(0, 7); // lead card spans two columns: 7 cards fill two rows of four
 ---
 <Layout>
 	<!-- HERO -->
 	<section class="hero">
 		<div class="wrap hero-grid">
 			<div>
-				<span class="since">SINCE {site.since} · ANAND, GUJARAT</span>
+				<span class="since">SINCE {site.since} · GUJARAT, INDIA</span>
 				<h1>Your partner in <span>precision moulding.</span></h1>
-				<p class="lede">Custom plastic injection-moulded and rubber components for motors, pumps, conveyors, dairy, chemical and automotive industries — from mould design to mass production, under one roof.</p>
+				<p class="lede">Top-quality plastic and rubber moulding with 25+ years of manufacturing excellence. We combine scale and precision to craft custom components for motors, pumps, conveyors, dairy, chemical and automotive industries — from mould design to mass production, under one roof.</p>
 				<div class="hero-actions">
 					<a href="/contact/" class="btn btn-amber">Send your drawing for a quote <Icon name="arrow" stroke={2.4} /></a>
-					<a href="/components/" class="btn btn-ghost">See components</a>
+					<a href="/services/" class="btn btn-ghost">Our services</a>
 				</div>
 				<ul class="hero-ticks">
 					<li><Icon name="check" size={16} stroke={2.6} />In-house mould design</li>
@@ -84,32 +92,52 @@ import { site, stats, services } from '../data/site';
 					<span class="eyebrow">What we do</span>
 					<h2>From mould design<br />to finished part.</h2>
 				</div>
-				<p class="lede">One supplier for the whole job — so your part goes from drawing to delivery without being passed between vendors.</p>
+				<a href="/services/" class="btn btn-line">All {services.length} services <Icon name="arrow" stroke={2.4} /></a>
 			</div>
 			<div class="svc-grid">
-				{services.map((s) => (
-					<a href={`/services/#${s.slug}`} class:list={['svc', 'reveal', { lead: s.lead }]}>
+				{homeServices.map((s) => (
+					<a href={`/services/${s.slug}/`} class:list={['svc', 'reveal', { lead: s.lead }]}>
 						<div>
 							<div class="ic"><Icon name={s.icon} /></div>
 							<h3>{s.title}</h3>
 							<p>{s.short}</p>
 						</div>
-						{s.lead && <ul class="dots">{s.points.map((p) => <li>{p}</li>)}</ul>}
+						{s.lead && <ul class="dots">{s.includes.slice(0, 4).map((p) => <li>{p}</li>)}</ul>}
 					</a>
 				))}
 			</div>
 		</div>
 	</section>
 
+	<!-- ABOUT -->
+	<section class="section about-band">
+		<div class="wrap about-grid">
+			<div class="reveal">
+				<span class="eyebrow">About us</span>
+				<h2>25 years of excellence in plastic moulding.</h2>
+			</div>
+			<div class="reveal">
+				<p class="lede">Shiv Sagar Enterprise is a trusted manufacturer of plastic injection-moulded and rubber components since {site.since}. Based in Gujarat, we specialise in precision-engineered components for diverse industrial needs. With over 100 satisfied clients, we deliver quality, reliability and consistency across India.</p>
+				<div class="about-pts">
+					<div><b>Precision engineered</b><span>Custom-moulded parts with exceptional dimensional accuracy.</span></div>
+					<div><b>On time, every time</b><span>Streamlined logistics and proactive tracking for prompt, reliable delivery.</span></div>
+				</div>
+				<a href="/about/" class="btn btn-navy">More about us <Icon name="arrow" stroke={2.4} /></a>
+			</div>
+		</div>
+	</section>
+
+	<Capacity />
+
 	<!-- COMPONENTS -->
 	<section class="section comps" id="industries">
 		<div class="wrap">
 			<div class="head-row reveal">
 				<div>
-					<span class="eyebrow">Components we make</span>
+					<span class="eyebrow">Industries & applications</span>
 					<h2>Parts for the machines<br />that keep India running.</h2>
 				</div>
-				<a href="/components/" class="btn btn-line">All components <Icon name="arrow" stroke={2.4} /></a>
+				<a href="/industries/" class="btn btn-line">All industries <Icon name="arrow" stroke={2.4} /></a>
 			</div>
 			<IndustryTabs />
 		</div>
@@ -118,7 +146,24 @@ import { site, stats, services } from '../data/site';
 	<Materials />
 	<Process />
 	<Why />
-	<Enquiry />
+	<Testimonials />
+	<Faq items={faq} lede="Whether your industry is listed or you have a unique application, we're equipped to deliver the right solution." />
+
+	<!-- BLOG -->
+	<section class="section blog-band">
+		<div class="wrap">
+			<div class="head-row reveal">
+				<div>
+					<span class="eyebrow">News, tips & more</span>
+					<h2>Latest from the blog.</h2>
+				</div>
+				<a href="/blog/" class="btn btn-line">All posts <Icon name="arrow" stroke={2.4} /></a>
+			</div>
+			<div class="blog-grid">{latest.map((p) => <PostCard post={p} />)}</div>
+		</div>
+	</section>
+
+	<Enquiry heading="Get your free custom moulding quote." />
 </Layout>
 
 <style>
@@ -153,7 +198,18 @@ import { site, stats, services } from '../data/site';
 	.hs dt em { font-style: normal; color: var(--amber); }
 	.hs dd { margin: 0; font-size: 14px; color: var(--on-navy-2); }
 
-	@media (max-width: 1050px) { .hero-grid { grid-template-columns: 1fr; } }
+	.about-band { background: var(--paper); border-bottom: 1px solid var(--line); }
+	.about-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 56px; align-items: start; }
+	.about-grid h2 { margin-top: 12px; }
+	.about-grid .lede { margin-top: 0; max-width: none; }
+	.about-pts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 26px 0 28px; }
+	.about-pts div { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+	.about-pts b { display: block; }
+	.about-pts span { font-size: 14.5px; color: var(--ink-2); }
+	.blog-band { padding-top: 0; }
+	.blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+	@media (max-width: 1050px) { .hero-grid, .about-grid { grid-template-columns: 1fr; } .about-grid { gap: 20px; } .blog-grid { grid-template-columns: 1fr 1fr; } }
+	@media (max-width: 600px) { .about-pts, .blog-grid { grid-template-columns: 1fr; } }
 	@media (max-width: 860px) {
 		.hero-stats dl { grid-template-columns: 1fr 1fr; }
 		.hs, .hs:first-child { padding: 22px 14px; border-bottom: 1px solid var(--navy-line); }

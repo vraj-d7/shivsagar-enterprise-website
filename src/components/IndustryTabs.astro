@@ -42,7 +42,7 @@ import { industries } from '../data/site';
 				if (d) { e.preventDefault(); show(tabs[(i + d + tabs.length) % tabs.length], true); }
 			});
 		});
-		// Open the industry named in the URL hash, e.g. /components/#pumps
+		// Open the industry named in the URL hash, e.g. /industries/#pumps
 		const fromHash = tabs.find((t) => t.dataset.id === location.hash.slice(1));
 		if (fromHash) show(fromHash);
 	});

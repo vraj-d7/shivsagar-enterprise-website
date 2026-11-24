@@ -1,27 +1,40 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
 import Why from '../components/Why.astro';
-import Process from '../components/Process.astro';
+import Capacity from '../components/Capacity.astro';
+import Testimonials from '../components/Testimonials.astro';
 import Enquiry from '../components/Enquiry.astro';
 import { site, stats } from '../data/site';
+import { services } from '../data/services';
+
+// "Why choose Shiv Sagar Enterprise" from the old about page.
+const pillars = [
+	{ title: 'Precision moulding solutions', text: 'Custom plastic and rubber components made with exacting detail to meet your industrial needs and performance standards.' },
+	{ title: 'Versatile material expertise', text: 'We mould parts in a broad range of polymers and elastomers like PE, PP, ABS, nylon, EPDM and silicone to suit diverse applications.' },
+	{ title: 'High-volume, high-quality output', text: 'Our facility delivers large-scale production with rigorous quality checks so every part meets exact standards.' },
+	{ title: 'Nationwide reach, global standards', text: 'We serve clients across India and are fully equipped for international exports with reliable logistics.' },
+];
 ---
-<Layout title="About us" description={`Shiv Sagar Enterprise has made plastic and rubber moulded components in GIDC V.U. Nagar, Anand since ${site.since}.`}>
-	<PageHero crumb="About" eyebrow={`Since ${site.since}`}>
-		Moulding for Indian industry <span>since {site.since}.</span>
+<Layout title="About us" description={`Since ${site.since}, Shiv Sagar Enterprise has made precision plastic injection-moulded and rubber components in Gujarat — 40,000+ plastic and 5,000+ rubber parts a day for 100+ clients.`}>
+	<PageHero crumb="About" eyebrow="Welcome to Shiv Sagar Enterprise">
+		25+ years of excellence in <span>plastic moulding.</span>
 	</PageHero>
 
 	<section class="section">
 		<div class="wrap story">
 			<div class="reveal">
-				<span class="eyebrow">Our story</span>
-				<h2>A family-run workshop that grew with its customers.</h2>
+				<span class="eyebrow">Who we are</span>
+				<h2>A trusted name in moulding since {site.since}.</h2>
 			</div>
 			<div class="story-text reveal">
-				<!-- CONFIRM: founder name, early history and current team size with the owner before launch. -->
-				<p>Shiv Sagar Enterprise started in {site.since} in GIDC V.U. Nagar, Anand, making plastic parts for the electric motor makers around it. Fan blades, terminal boxes and caps are still a big part of what we do.</p>
-				<p>As customers asked for more, we added rubber moulding, in-house mould design and tooling, machining and assembly. Today we supply pump makers, conveyor builders, dairies, chemical plants and engineering firms across India, and we're equipped for export orders.</p>
-				<p>What hasn't changed is how we work: we look at the part, recommend the right material and mould, and make every batch match the sample you approved.</p>
+				<p>Since {site.since}, Shiv Sagar Enterprise has been a trusted name in plastic injection moulded components in Gujarat, India. With a production capacity of over 40,000 plastic and 5,000 rubber parts per day, we serve 100+ clients across diverse industries including electric motors, pumps, dairy, chemical and conveyor systems.</p>
+				<p>We are a trusted Indian manufacturer of precision plastic injection-moulded and rubber components. We deliver high-quality, custom-engineered parts with advanced machinery and strict quality control.</p>
+				<div class="two">
+					<div><b>End-to-end moulding solutions</b><span>Complete support from design to production for precision-moulded plastic and rubber components.</span></div>
+					<div><b>Multi-industry component supply</b><span>Custom-engineered parts for diverse sectors including automotive and electrical.</span></div>
+				</div>
 			</div>
 		</div>
 	</section>
@@ -30,20 +43,40 @@ import { site, stats } from '../data/site';
 		<dl class="wrap">
 			{stats.map((s) => <div><dt>{s.value}<em>{s.unit}</em></dt><dd>{s.label}</dd></div>)}
 			<div><dt>5,000<em>+</em></dt><dd>rubber parts per day</dd></div>
-			<div><dt>10<em>+</em></dt><dd>plastics and rubbers</dd></div>
+			<div><dt>{services.length}</dt><dd>services under one roof</dd></div>
 		</dl>
 	</section>
 
+	<section class="section">
+		<div class="wrap">
+			<div class="head-row reveal">
+				<div>
+					<span class="eyebrow">Why choose us</span>
+					<h2>Why choose Shiv Sagar Enterprise.</h2>
+				</div>
+				<a href="/services/" class="btn btn-line">Our services <Icon name="arrow" stroke={2.4} /></a>
+			</div>
+			<div class="pillars">
+				{pillars.map((p, i) => <div class="pl reveal"><span class="k">{String(i + 1).padStart(2, '0')}</span><h3>{p.title}</h3><p>{p.text}</p></div>)}
+			</div>
+		</div>
+	</section>
+
+	<Capacity />
 	<Why />
-	<Process />
+	<Testimonials />
 	<div style="height:100px" aria-hidden="true"></div>
-	<Enquiry heading="Let's talk about your part." />
+	<Enquiry heading="Searching for the perfect moulding partner?" />
 </Layout>
 
 <style>
 	.story { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; }
 	.story-text p { color: var(--ink-2); font-size: 17px; margin: 0 0 18px; }
 	.story-text p:first-child { font-size: 20px; color: var(--ink); font-weight: 500; }
+	.two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 26px; }
+	.two div { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
+	.two b { display: block; }
+	.two span { font-size: 14.5px; color: var(--ink-2); }
 	.numbers { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 	.numbers dl { display: grid; grid-template-columns: repeat(6, 1fr); margin: 0 auto; }
 	.numbers div { padding: 36px 16px; border-right: 1px solid var(--line); }
@@ -51,13 +84,20 @@ import { site, stats } from '../data/site';
 	dt { font-size: 32px; font-weight: 800; letter-spacing: -.03em; line-height: 1.2; }
 	dt em { font-style: normal; color: var(--amber); }
 	dd { margin: 0; font-size: 14px; color: var(--ink-2); }
+	.pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+	.pl { background: var(--navy); color: var(--on-navy-2); border-radius: var(--radius); padding: 26px; }
+	.pl .k { font-family: var(--mono); font-weight: 700; color: var(--amber); font-size: 13px; }
+	.pl h3 { color: #fff; font-size: 19px; margin-top: 24px; }
+	.pl p { margin: 8px 0 0; font-size: 14.5px; }
 	@media (max-width: 1050px) {
 		.story { grid-template-columns: 1fr; gap: 24px; }
+		.pillars { grid-template-columns: 1fr 1fr; }
 		.numbers dl { grid-template-columns: repeat(3, 1fr); }
 		.numbers div:nth-child(3) { border-right: 0; }
 		.numbers div:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
 	}
 	@media (max-width: 600px) {
+		.two, .pillars { grid-template-columns: 1fr; }
 		.numbers dl { grid-template-columns: 1fr 1fr; }
 		.numbers div { padding: 24px 12px; border-bottom: 1px solid var(--line); }
 		.numbers div:nth-child(3) { border-right: 1px solid var(--line); }

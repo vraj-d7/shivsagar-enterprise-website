@@ -1,0 +1,26 @@
+---
+import { Image } from 'astro:assets';
+import { excerpt, fmtDate, type Post } from '../data/blog';
+interface Props { post: Post }
+const { post } = Astro.props;
+---
+<a class="post reveal" href={`/blog/${post.id}/`}>
+	{post.data.image && <Image src={post.data.image} alt="" widths={[400, 700]} sizes="(max-width: 700px) 100vw, 380px" loading="lazy" />}
+	<div class="pb">
+		<span class="cat">{post.data.category}</span>
+		<h3>{post.data.title}</h3>
+		<p>{excerpt(post)}</p>
+		<time datetime={post.data.date.toISOString()}>{fmtDate(post.data.date)}</time>
+	</div>
+</a>
+
+<style>
+	.post { display: flex; flex-direction: column; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; transition: transform .25s, box-shadow .25s, border-color .25s; }
+	.post:hover { transform: translateY(-5px); border-color: var(--blue); box-shadow: 0 24px 40px -28px rgba(15,42,74,.45); }
+	.post :global(img) { width: 100%; height: auto; aspect-ratio: 16 / 10; object-fit: cover; background: var(--blue-soft); }
+	.pb { padding: 22px 24px 24px; display: flex; flex-direction: column; flex: 1; }
+	.cat { font-family: var(--mono); font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--blue); font-weight: 700; }
+	h3 { font-size: 18px; margin-top: 10px; line-height: 1.25; }
+	p { color: var(--ink-2); font-size: 14.5px; margin: 10px 0 16px; flex: 1; }
+	time { font-size: 13px; color: var(--muted); }
+</style>

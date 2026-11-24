@@ -1,0 +1,20 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { Content } from '../content/terms.md';
+---
+<Layout title="Terms and conditions" description="Terms and conditions for orders and services from Shiv Sagar Enterprise.">
+	<PageHero crumb="Terms" eyebrow="Legal">Terms and <span>conditions.</span></PageHero>
+	<section class="section">
+		<div class="wrap prose"><Content /></div>
+	</section>
+</Layout>
+
+<style>
+	.prose { max-width: 820px; color: var(--ink-2); font-size: 16.5px; line-height: 1.75; }
+	.prose :global(h3) { color: var(--ink); font-size: 20px; margin: 8px 0 10px; }
+	.prose :global(strong) { color: var(--ink); }
+	.prose :global(hr) { border: 0; border-top: 1px solid var(--line); margin: 28px 0; }
+	.prose :global(ul) { padding-left: 22px; }
+	.prose :global(p) { margin: 0 0 14px; }
+</style>

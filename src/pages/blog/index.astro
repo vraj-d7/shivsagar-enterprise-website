@@ -1,0 +1,45 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
+import PostCard from '../../components/PostCard.astro';
+import { getPosts } from '../../data/blog';
+const posts = await getPosts();
+const cats = [...new Set(posts.map((p) => p.data.category))];
+---
+<Layout title="Blog" description="Insights, industry trends and behind-the-scenes stories from Shiv Sagar Enterprise, a plastic injection and rubber moulding manufacturer in Gujarat.">
+	<PageHero crumb="Blog" eyebrow="News, tips & more" lede="Expert insights, industry trends and behind-the-scenes stories from one of India's plastic injection and rubber moulding manufacturers — where innovation meets experience.">
+		Latest from <span>Shiv Sagar.</span>
+	</PageHero>
+
+	<section class="section">
+		<div class="wrap">
+			<div class="filters" role="group" aria-label="Filter by category">
+				<button aria-pressed="true" data-cat="">All</button>
+				{cats.map((c) => <button aria-pressed="false" data-cat={c}>{c}</button>)}
+			</div>
+			<div class="grid" id="posts">
+				{posts.map((p) => <div data-cat={p.data.category}><PostCard post={p} /></div>)}
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<script>
+	const btns = [...document.querySelectorAll<HTMLButtonElement>('.filters button')];
+	const items = [...document.querySelectorAll<HTMLElement>('#posts > [data-cat]')];
+	btns.forEach((b) => b.addEventListener('click', () => {
+		btns.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+		items.forEach((i) => { i.hidden = !!b.dataset.cat && i.dataset.cat !== b.dataset.cat; i.querySelector('.reveal')?.classList.add('in'); });
+	}));
+</script>
+
+<style>
+	.filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 28px; }
+	.filters button { font: 600 14px var(--font); color: var(--ink-2); background: var(--paper); border: 1px solid var(--line); border-radius: 999px; padding: 9px 16px; cursor: pointer; }
+	.filters button:hover { color: var(--ink); border-color: var(--ink-2); }
+	.filters button[aria-pressed="true"] { background: var(--navy); color: #fff; border-color: var(--navy); }
+	.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+	.grid > div { display: grid; }
+	@media (max-width: 1050px) { .grid { grid-template-columns: 1fr 1fr; } }
+	@media (max-width: 600px) { .grid { grid-template-columns: 1fr; } }
+</style>

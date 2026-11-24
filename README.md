@@ -1,19 +1,29 @@
 # Shiv Sagar Enterprise website
 
-Website for Shiv Sagar Enterprise: plastic injection moulding and rubber moulded parts, GIDC V.U. Nagar, Anand, Gujarat. Built with [Astro](https://astro.build) and served from Cloudflare.
+Redesign and rebuild of [shivsagarenterprise.com](https://shivsagarenterprise.com): plastic injection moulding and rubber moulded parts, Gujarat. Built with [Astro](https://astro.build) and served from Cloudflare. All the content of the old WordPress site has been carried over (Nov 2026).
 
 ## Pages
 
-| Page | File |
-| --- | --- |
-| Home | `src/pages/index.astro` |
-| Services | `src/pages/services.astro` |
-| Components & materials | `src/pages/components.astro` |
-| About | `src/pages/about.astro` |
-| Contact & quote form | `src/pages/contact.astro` |
-| 404 | `src/pages/404.astro` |
+| Page | File | Old WordPress URL |
+| --- | --- | --- |
+| Home | `src/pages/index.astro` | `/` |
+| About | `src/pages/about.astro` | `/about-us/` |
+| Services | `src/pages/services/index.astro` | `/services/` |
+| 8 service pages | `src/pages/services/[slug].astro` + `src/data/services.ts` | `/service/…/` |
+| Industries & materials | `src/pages/industries.astro` | (home page section) |
+| Blog + 9 posts | `src/pages/blog/` + `src/content/blog/*.md` | `/blog/`, `/2025/06/…/` |
+| Contact | `src/pages/contact.astro` | `/contact-us/` |
+| Terms | `src/pages/terms.astro` + `src/content/terms.md` | `/terms-and-conditions/` |
+| 404 | `src/pages/404.astro` | |
 
-All company details and copy (phone, email, address, services, industries, materials, stats) are kept in **`src/data/site.ts`**. Edit them there and every page updates.
+Every old URL redirects to its new page (`public/_redirects`), so existing Google results and bookmarks keep working.
+
+## Where to edit content
+
+- **Company details, stats, industries, materials, FAQ, testimonials:** `src/data/site.ts`
+- **Services (all 8 pages):** `src/data/services.ts`
+- **Blog posts:** one Markdown file each in `src/content/blog/`. To add a post, copy one, change the front matter, and put its image in `src/assets/blog/`.
+- **Terms:** `src/content/terms.md`
 
 ## Commands
 
@@ -28,13 +38,20 @@ npm run deploy   # build and publish to Cloudflare (needs `npx wrangler login` o
 
 There's no server. Pressing **Send enquiry** opens the visitor's email app with the enquiry ready to send to the address in `site.ts`. The page also offers call and WhatsApp links.
 
+## Left out on purpose
+
+- WordPress theme placeholder text that was still live on the old service pages (paragraphs about "Gazolin", predictive analytics, "beginner-friendly certification", etc.).
+- The "Video Presentation" on each old service page, which was a stock Envato demo video, not a Shiv Sagar video.
+- Copy-pasted citations of a competitor ("Dalal Plastics") in the old capacity section.
+- The empty "Shop – coming soon" page (now redirects home) and the "Our Brochure" button, which linked nowhere.
+
 ## To confirm with the owner before launch
 
 Search the code for `CONFIRM`:
 
-- Factory address (the old site lists two)
-- Client count (100+)
-- Opening hours
-- About-page history (founder, early years)
+- **Factory location.** The old contact page says GIDC V.U. Nagar, Anand. The about page, injection moulding page, terms (court jurisdiction) and several blog posts say Ankleshwar, and one post also mentions Ahmedabad. The site currently shows the Anand address.
+- **Client count.** The old site says 100+ on the home and about pages but 450+ on the services page. Using 100+.
+- **Testimonials.** Three quotes (Rajesh Mehta, Sneha Kulkarni, Dinesh Iyer). Make sure these are real customers who agreed to be quoted.
+- **Logo.** The old site's logo (blue "SS" with a red swoosh) is not used yet. The new site has a placeholder mark.
 
-The original single-page mockup is kept in `design/`.
+The original single-page design mockup is in `design/`.

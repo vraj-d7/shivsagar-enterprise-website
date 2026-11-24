@@ -1,0 +1,40 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Icon from '../../components/Icon.astro';
+import Process from '../../components/Process.astro';
+import Capacity from '../../components/Capacity.astro';
+import Enquiry from '../../components/Enquiry.astro';
+import { services } from '../../data/services';
+---
+<Layout title="Services" description="Plastic injection moulding, AC/DC motor components, rubber moulded parts, mould design, tooling, insert moulding, machining and allied services — all under one roof at Shiv Sagar Enterprise.">
+	<PageHero crumb="Services" eyebrow="Precision engineering & reliable manufacturing" lede="We specialise in high-quality plastic injection moulding and allied manufacturing services for automotive, consumer goods, electrical and many more industries. With over 25 years of expertise, our advanced machinery and skilled workforce deliver efficient mass production, dimensional accuracy and consistent quality.">
+		From mould design to <span>finished part.</span>
+	</PageHero>
+
+	<section class="section">
+		<div class="wrap">
+			<div class="svc-grid">
+				{services.map((s) => (
+					<a href={`/services/${s.slug}/`} class="svc reveal">
+						<div class="ic"><Icon name={s.icon} /></div>
+						<h3>{s.title}</h3>
+						<p>{s.short}</p>
+						<span class="more">Read more <Icon name="arrow" size={15} stroke={2.4} /></span>
+					</a>
+				))}
+			</div>
+		</div>
+	</section>
+
+	<Capacity />
+	<Process />
+	<div style="height:100px" aria-hidden="true"></div>
+	<Enquiry heading="Have a part in mind?" />
+</Layout>
+
+<style>
+	.svc { display: flex; flex-direction: column; }
+	.svc p { flex: 1; }
+	.more { display: inline-flex; gap: 6px; align-items: center; margin-top: 16px; font-weight: 700; font-size: 14px; color: var(--blue); }
+</style>
