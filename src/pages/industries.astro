@@ -2,7 +2,6 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import IndustryArt from '../components/IndustryArt.astro';
-import Materials from '../components/Materials.astro';
 import Enquiry from '../components/Enquiry.astro';
 import Icon from '../components/Icon.astro';
 import { industries } from '../data/site';
@@ -15,7 +14,6 @@ import { industries } from '../data/site';
 	<nav class="jump" aria-label="Jump to industry">
 		<div class="wrap">
 			{industries.map((i) => <a href={`#${i.id}`}>{i.tab}</a>)}
-			<a href="#materials">Materials</a>
 		</div>
 	</nav>
 
@@ -43,8 +41,6 @@ import { industries } from '../data/site';
 		</div>
 	</section>
 
-	<div class="mat-bg"><Materials detailed /></div>
-	<div style="height:100px" aria-hidden="true"></div>
 	<Enquiry />
 </Layout>
 
@@ -55,7 +51,6 @@ import { industries } from '../data/site';
 	.jump a:hover { color: var(--ink); border-color: var(--ink-2); }
 	.list { display: grid; gap: 20px; }
 	.ind-panel { scroll-margin-top: 72px; } /* plus the 88px html scroll-padding: clears header + jump bar */
-	.mat-bg :global(#materials) { scroll-margin-top: 56px; }
 	.ind-body h2 { font-size: 28px; margin: 0; }
 	.ind-body > p:not(.mat) { font-size: 15.5px; }
 	.ask { display: inline-flex; gap: 8px; align-items: center; margin-top: 20px; font-weight: 700; color: var(--blue); }
@@ -64,7 +59,6 @@ import { industries } from '../data/site';
 	.custom { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; background: var(--navy); color: var(--on-navy-2); border-radius: 20px; padding: 40px; }
 	.custom h2 { color: #fff; margin: 0; font-size: clamp(26px, 3vw, 34px); }
 	.custom p { margin: 10px 0 0; max-width: 720px; }
-	.mat-bg { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 	@media (max-width: 1050px) {
 		.list .ind-panel:nth-child(even) .ind-art { order: 0; border-left: 0; border-bottom: 1px solid var(--line); }
 	}

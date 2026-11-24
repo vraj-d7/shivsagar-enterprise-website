@@ -7,7 +7,7 @@ import 'lenis/dist/lenis.css';
 if (!matchMedia('(prefers-reduced-motion: reduce)').matches) {
 	const lenis = new Lenis({ lerp: 0.1, autoRaf: true });
 
-	// In-page links (#pumps, /industries/#materials while already on /industries/) glide instead of jumping.
+	// In-page links (e.g. #pumps on /industries/) glide instead of jumping.
 	document.addEventListener('click', (e) => {
 		const a = (e.target as Element).closest<HTMLAnchorElement>('a[href*="#"]');
 		if (!a || a.target === '_blank' || e.metaKey || e.ctrlKey || e.shiftKey) return;

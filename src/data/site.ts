@@ -93,20 +93,6 @@ export const industries: Industry[] = [
 	},
 ];
 
-export const materials: { name: string; note: string; kind: 'plastic' | 'rubber'; use: string }[] = [
-	{ name: 'PP', note: 'Polypropylene', kind: 'plastic', use: 'Light, chemical resistant and low cost. Fan blades, caps, crates.' },
-	{ name: 'HDPE', note: 'High-density PE', kind: 'plastic', use: 'Tough, low-friction and corrosion resistant. Idler rollers, wear strips, fittings.' },
-	{ name: 'PE', note: 'Polyethylene', kind: 'plastic', use: 'Flexible and moisture resistant. Covers, liners, general parts.' },
-	{ name: 'ABS', note: 'Tough, good finish', kind: 'plastic', use: 'Rigid with a clean surface. Knobs, housings, covers.' },
-	{ name: 'Nylon', note: 'Strength & wear', kind: 'plastic', use: 'Strong and wear resistant. Impellers, rollers, motor parts.' },
-	{ name: 'PBT', note: 'Electrical parts', kind: 'plastic', use: 'Heat-stable and insulating. Motor and electrical components.' },
-	{ name: 'PTFE', note: 'Chemical resistant', kind: 'plastic', use: 'Resists almost every chemical. Seals, liners, valve parts.' },
-	{ name: 'PVDF', note: 'Acids & solvents', kind: 'plastic', use: 'For acids and solvents at temperature. Chemical pump parts.' },
-	{ name: 'EPDM', note: 'Weather & water', kind: 'rubber', use: 'Water, steam and outdoor use. Gaskets, seals, O-rings, mounts.' },
-	{ name: 'Silicone', note: 'Food-grade, heat', kind: 'rubber', use: 'Food contact and high heat. Dairy gaskets, diaphragms.' },
-	{ name: 'Natural & neoprene', note: 'General sealing', kind: 'rubber', use: 'General-purpose sealing and vibration damping.' },
-];
-
 export const steps = [
 	{ title: 'Enquiry', text: 'Share your drawing or sample, material and quantity.' },
 	{ title: 'Design', text: 'We design the mould and confirm material and tolerances.' },
