@@ -24,6 +24,7 @@ Every old URL redirects to its new page (`public/_redirects`), so existing Googl
 - **Services (all 8 pages):** `src/data/services.ts`
 - **Blog posts:** one Markdown file each in `src/content/blog/`. To add a post, copy one, change the front matter, and put its image in `src/assets/blog/`.
 - **Terms:** `src/content/terms.md`
+- **Logo:** `src/assets/brand/logo.png` (full) and `logo-mark.png` (symbol), made transparent from the old site's logo. Favicons are in `public/`.
 
 ## Commands
 
@@ -52,6 +53,5 @@ Search the code for `CONFIRM`:
 - **Factory location.** The old contact page says GIDC V.U. Nagar, Anand. The about page, injection moulding page, terms (court jurisdiction) and several blog posts say Ankleshwar, and one post also mentions Ahmedabad. The site currently shows the Anand address.
 - **Client count.** The old site says 100+ on the home and about pages but 450+ on the services page. Using 100+.
 - **Testimonials.** Three quotes (Rajesh Mehta, Sneha Kulkarni, Dinesh Iyer). Make sure these are real customers who agreed to be quoted.
-- **Logo.** The old site's logo (blue "SS" with a red swoosh) is not used yet. The new site has a placeholder mark.
 
 The original single-page design mockup is in `design/`.

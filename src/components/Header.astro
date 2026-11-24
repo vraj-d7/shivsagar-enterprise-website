@@ -17,8 +17,7 @@ const path = Astro.url.pathname;
 <header class="nav" id="nav">
 	<div class="wrap">
 		<a href="/" class="logo" aria-label={`${site.name} home`}>
-			<Logo />
-			<span><b>{site.short}</b><small>Enterprise · Est. {site.since}</small></span>
+			<Logo height={38} class="logo-img" />
 		</a>
 		<nav class="links" id="links" aria-label="Main">
 			{nav.map((l) => <a href={l.href} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a>)}
@@ -53,9 +52,9 @@ const path = Astro.url.pathname;
 	.topbar a:hover { color: #fff; }
 	.nav { position: sticky; top: 0; z-index: 40; background: rgba(247,245,240,.92); backdrop-filter: blur(12px); border-bottom: 1px solid var(--line); }
 	.nav .wrap { height: 72px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
-	.logo { display: flex; align-items: center; gap: 11px; }
-	.logo b { display: block; font-size: 19px; font-weight: 800; letter-spacing: -.02em; line-height: 1.1; }
-	.logo small { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: .1em; color: var(--muted); text-transform: uppercase; }
+	.logo { display: flex; align-items: center; flex: 0 1 auto; min-width: 0; }
+	.logo :global(.logo-img) { display: block; height: 38px; width: auto; max-width: 100%; }
+	@media (max-width: 420px) { .logo :global(.logo-img) { height: 30px; } }
 	.links { display: flex; gap: 30px; font-weight: 600; font-size: 15px; color: var(--ink-2); }
 	.links a:not(.btn):hover, .links a[aria-current="page"] { color: var(--blue); }
 	.links-cta { display: none; }

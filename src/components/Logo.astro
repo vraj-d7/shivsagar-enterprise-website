@@ -1,9 +1,12 @@
 ---
-interface Props { size?: number }
-const { size = 42 } = Astro.props;
+// Shiv Sagar Enterprise's own logo (blue "SS" with red swoosh + wordmark), taken from the old website.
+// Source files: src/assets/brand/logo.png (full) and logo-mark.png (symbol only).
+import { Image } from 'astro:assets';
+import logo from '../assets/brand/logo.png';
+import mark from '../assets/brand/logo-mark.png';
+interface Props { variant?: 'full' | 'mark'; height?: number; class?: string }
+const { variant = 'full', height = 40, class: cls } = Astro.props;
+const src = variant === 'mark' ? mark : logo;
+const width = Math.round((src.width / src.height) * height);
 ---
-<svg width={size} height={size} viewBox="0 0 42 42" aria-hidden="true">
-	<rect width="42" height="42" rx="11" fill="#0f2a4a" />
-	<path d="M11 15c0-3 2.5-5 6-5h8M31 27c0 3-2.5 5-6 5h-8" stroke="#ffb703" stroke-width="3.2" stroke-linecap="round" fill="none" />
-	<path d="M11 15c0 4 4 5 10 6s10 2 10 6" stroke="#fff" stroke-width="3.2" stroke-linecap="round" fill="none" />
-</svg>
+<Image src={src} alt="Shiv Sagar Enterprise" width={width} height={height} densities={[1, 2]} loading="eager" class={cls} />

@@ -1,13 +1,14 @@
 ---
 import { site, industries } from '../data/site';
 import { services } from '../data/services';
+import Logo from './Logo.astro';
 const year = new Date().getFullYear();
 ---
 <footer>
 	<div class="wrap">
 		<div class="foot">
 			<div>
-				<b class="fname">{site.name}</b>
+				<a href="/" class="flogo" aria-label={`${site.name} home`}><Logo height={30} /></a>
 				<p>A trusted Indian manufacturer of precision plastic injection-moulded and rubber components, serving industries since {site.since}.</p>
 			</div>
 			<div>
@@ -37,7 +38,9 @@ const year = new Date().getFullYear();
 <style>
 	footer { background: var(--navy); color: var(--on-navy-2); padding: 54px 0 32px; font-size: 14px; }
 	.foot { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 36px; }
-	.fname { color: #fff; font-size: 18px; }
+	/* The logo is blue and red, so it sits on a white chip to stay legible on the navy footer. */
+	.flogo { display: inline-flex; background: #fff; border-radius: 12px; padding: 10px 14px; }
+	.flogo :global(img) { display: block; height: 30px; width: auto; max-width: 100%; }
 	.foot p { max-width: 300px; margin: 10px 0 0; }
 	h4 { color: #fff; margin: 0 0 14px; font-size: 15px; }
 	ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 9px; }
