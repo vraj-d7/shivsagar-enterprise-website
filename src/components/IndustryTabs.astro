@@ -10,7 +10,7 @@ import { industries } from '../data/site';
 	</div>
 	{industries.map((ind, i) => (
 		<div class="ind-panel reveal" role="tabpanel" id={`panel-${ind.id}`} aria-labelledby={`tab-${ind.id}`} hidden={i !== 0}>
-			<div class="ind-art"><IndustryArt art={ind.art} /></div>
+			<div class="ind-art"><IndustryArt id={ind.id} /></div>
 			<div class="ind-body">
 				<h3>{ind.title}</h3>
 				<p>{ind.intro}</p>

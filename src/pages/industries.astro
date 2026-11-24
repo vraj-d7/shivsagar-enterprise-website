@@ -23,7 +23,7 @@ import { industries } from '../data/site';
 		<div class="wrap list">
 			{industries.map((ind) => (
 				<article class="ind-panel reveal" id={ind.id}>
-					<div class="ind-art"><IndustryArt art={ind.art} /></div>
+					<div class="ind-art"><IndustryArt id={ind.id} /></div>
 					<div class="ind-body">
 						<h2>{ind.title}</h2>
 						<p>{ind.body}</p>

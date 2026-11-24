@@ -46,7 +46,6 @@ export type Industry = {
 	body: string;
 	parts: string[];
 	materials: string;
-	art: 'fan' | 'pump' | 'conveyor' | 'dairy' | 'chemical' | 'auto';
 };
 
 export const industries: Industry[] = [
@@ -55,42 +54,42 @@ export const industries: Industry[] = [
 		intro: 'Plastic components that keep motors cool, insulated and protected.',
 		body: 'For the electric motor industry, we supply precision-moulded plastic parts and insulation components that improve performance and reduce weight. From fan blades and internal caps to terminal housings and mounting brackets, our components help AC and DC motor manufacturers build motors that run cooler and quieter. Parts are made to tight tolerances to withstand the mechanical stress and heat inside motors, in engineering plastics that are rigid, heat-stable and electrically insulating.',
 		parts: ['Fan blades', 'Terminal housings', 'Internal caps', 'Mounting brackets', 'Insulation components'],
-		materials: 'Nylon · ABS · PBT · PP', art: 'fan',
+		materials: 'Nylon · ABS · PBT · PP',
 	},
 	{
 		id: 'pumps', tab: 'Pumps & fluid handling', title: 'Pumps & fluid handling',
 		intro: 'Wear- and corrosion-resistant parts for pumps and valves.',
 		body: 'We produce plastic pump components that meet rigorous fluid-industry standards. Our injection-moulded impellers offer excellent balance and durability for efficient pumping, while custom-moulded pump casings and valve parts deliver corrosion resistance and a precise fit. We also make the rubber parts pumps depend on — O-rings, seals and diaphragms — for leak-proof operation in water pumps, chemical pumps and agricultural sprayers.',
 		parts: ['Impellers', 'Pump casings', 'Valve parts', 'O-rings & seals', 'Diaphragms'],
-		materials: 'Nylon · PP · EPDM · Silicone', art: 'pump',
+		materials: 'Nylon · PP · EPDM · Silicone',
 	},
 	{
 		id: 'conveyors', tab: 'Conveyors', title: 'Material handling & conveyors',
 		intro: 'Low-friction, low-noise parts that keep materials moving.',
 		body: 'We manufacture durable idler rollers and other plastic conveyor components. Our HDPE and nylon idler rollers are lightweight, corrosion-resistant and built for smooth rotation — ideal for conveyor systems in factories, warehouses and food processing plants.',
 		parts: ['HDPE idler rollers', 'Nylon idler rollers', 'Guides', 'Wear strips'],
-		materials: 'HDPE · Nylon', art: 'conveyor',
+		materials: 'HDPE · Nylon',
 	},
 	{
 		id: 'dairy', tab: 'Dairy & food', title: 'Dairy & food processing',
 		intro: 'Hygienic, food-contact parts built for daily washdowns.',
 		body: 'We provide food-grade plastic and rubber parts for hygiene and reliability in dairy and food applications. Our components include dairy equipment fittings, milking machine parts, bottle crates and sealing gaskets made from materials safe for food contact. They are easy to clean, non-toxic and durable, with the smooth surfaces and chemical resistance the sector demands.',
 		parts: ['Dairy equipment fittings', 'Milking machine parts', 'Bottle crates', 'Sealing gaskets'],
-		materials: 'PP · HDPE · Food-grade silicone', art: 'dairy',
+		materials: 'PP · HDPE · Food-grade silicone',
 	},
 	{
 		id: 'chemical', tab: 'Chemical', title: 'Chemical & industrial equipment',
 		intro: 'Parts that stand up to acids, solvents and harsh process conditions.',
 		body: 'We produce chemical-resistant plastic parts and robust rubber components for laboratories, chemical processing machinery and industrial equipment. Our range includes acid-resistant pump impellers, valve bodies, pipe fittings and encapsulation parts that tolerate harsh chemicals and high temperatures, using materials such as HDPE, PTFE, PVDF and specialised rubber compounds.',
 		parts: ['Acid-resistant impellers', 'Valve bodies', 'Pipe fittings', 'Encapsulation parts'],
-		materials: 'HDPE · PTFE · PVDF · Rubber compounds', art: 'chemical',
+		materials: 'HDPE · PTFE · PVDF · Rubber compounds',
 	},
 	{
 		id: 'automotive', tab: 'Automotive & engineering', title: 'Automotive & engineering goods',
 		intro: 'Small parts with a big job — fit, finish and durability matter.',
 		body: 'We also serve the automotive, agriculture and general engineering sectors with high-quality moulded components. Our range includes precision plastic knobs, durable clips, functional housing covers and robust rubber bushings — made from high-grade materials to strict specifications for durability and reliability in use.',
 		parts: ['Plastic knobs', 'Clips', 'Housing covers', 'Rubber bushings'],
-		materials: 'ABS · Nylon · Rubber compounds', art: 'auto',
+		materials: 'ABS · Nylon · Rubber compounds',
 	},
 ];
 
