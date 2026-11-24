@@ -1,0 +1,164 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import Enquiry from '../components/Enquiry.astro';
+import { categories, products } from '../data/products';
+
+const groups = categories.map((c) => ({ ...c, items: products.filter((p) => p.category === c.id) }));
+const quoteHref = (name: string) => `/contact/?product=${encodeURIComponent(name)}#enquiry`;
+---
+<Layout title="Products" description="Plastic injection-moulded and rubber products from Shiv Sagar Enterprise: motor fan blades and housings, pump impellers, idler rollers, dairy fittings, chemical-resistant valve parts, O-rings, gaskets and more — made to your drawing or sample.">
+	<PageHero crumb="Products" eyebrow="What we make" lede="Plastic and rubber parts for motors, pumps, conveyors, dairy, chemical and engineering applications. Every part is made to your drawing or sample, in the material your application needs.">
+		Moulded parts, <span>made to order.</span>
+	</PageHero>
+
+	<div class="toolbar">
+		<div class="wrap tb">
+			<div class="chips" role="group" aria-label="Filter by category">
+				<button type="button" aria-pressed="true" data-cat="">All <span>{products.length}</span></button>
+				{groups.map((g) => <button type="button" aria-pressed="false" data-cat={g.id}>{g.name} <span>{g.items.length}</span></button>)}
+			</div>
+			<label class="search">
+				<span class="sr-only">Search products</span>
+				<input type="search" id="product-search" placeholder="Search, e.g. impeller, EPDM" autocomplete="off" />
+			</label>
+		</div>
+	</div>
+
+	<section class="section catalogue">
+		<div class="wrap">
+			{groups.map((g) => (
+				<section class="group" id={g.id} data-group={g.id} aria-labelledby={`h-${g.id}`}>
+					<div class="g-head">
+						<h2 id={`h-${g.id}`}>{g.name}</h2>
+						<p>{g.blurb}</p>
+					</div>
+					<ul class="grid">
+						{g.items.map((p) => (
+							<li class="card" data-search={`${p.name} ${p.desc} ${p.materials.join(' ')} ${p.usedIn} ${g.name}`.toLowerCase()}>
+								<h3>{p.name}</h3>
+								<p class="desc">{p.desc}</p>
+								<dl>
+									<div><dt>Materials</dt><dd class="tags">{p.materials.map((m) => <span>{m}</span>)}</dd></div>
+									<div><dt>Used in</dt><dd>{p.usedIn}</dd></div>
+								</dl>
+								<a class="ask" href={quoteHref(p.name)}>Ask for a quote <Icon name="arrow" size={15} stroke={2.4} /></a>
+							</li>
+						))}
+					</ul>
+				</section>
+			))}
+
+			<p class="empty" id="no-results" hidden>No products match that search. We make most parts to order — <a href="/contact/#enquiry">send us your drawing</a> and we'll tell you how we'd make it.</p>
+
+			<div class="custom">
+				<div>
+					<h2>Need something that isn't listed?</h2>
+					<p>Most of what we make is custom. Send a drawing, a sample or a photo with the material and quantity, and we'll come back with a quote.</p>
+				</div>
+				<a href="/contact/#enquiry" class="btn btn-amber">Send your drawing <Icon name="arrow" stroke={2.4} /></a>
+			</div>
+		</div>
+	</section>
+
+	<Enquiry heading="Get a quote for your part." />
+</Layout>
+
+<script>
+	const chips = [...document.querySelectorAll<HTMLButtonElement>('.chips button')];
+	const groups = [...document.querySelectorAll<HTMLElement>('[data-group]')];
+	const search = document.getElementById('product-search') as HTMLInputElement;
+	const empty = document.getElementById('no-results')!;
+	let cat = '';
+
+	const apply = () => {
+		const q = search.value.trim().toLowerCase();
+		let shown = 0;
+		groups.forEach((g) => {
+			let inGroup = 0;
+			g.querySelectorAll<HTMLElement>('[data-search]').forEach((c) => {
+				const ok = (!cat || g.dataset.group === cat) && (!q || q.split(/\s+/).every((w) => c.dataset.search!.includes(w)));
+				c.hidden = !ok;
+				if (ok) inGroup++;
+			});
+			g.hidden = inGroup === 0;
+			shown += inGroup;
+		});
+		empty.hidden = shown > 0;
+	};
+
+	chips.forEach((b) => b.addEventListener('click', () => {
+		cat = b.dataset.cat ?? '';
+		chips.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
+		// Bring the chosen chip into view inside the horizontally scrolling row (without moving the page).
+		const row = b.parentElement!;
+		row.scrollTo({ left: b.offsetLeft - (row.clientWidth - b.offsetWidth) / 2 });
+		apply();
+	}));
+	search.addEventListener('input', apply);
+
+	// Open a category from the URL, e.g. /products/#rubber, on load and when the hash changes.
+	const openFromHash = () => {
+		const chip = chips.find((b) => b.dataset.cat && b.dataset.cat === location.hash.slice(1));
+		if (!chip) return false;
+		chip.click();
+		// Land the category heading just below the sticky header and filter bar.
+		const bar = document.querySelector('.toolbar')!.getBoundingClientRect();
+		const head = document.getElementById(chip.dataset.cat!)!;
+		const y = head.getBoundingClientRect().top + scrollY - bar.height - 72 - 16;
+		scrollTo({ top: Math.max(0, y), behavior: 'instant' as ScrollBehavior });
+		return true;
+	};
+	if (location.hash) {
+		const chip = chips.find((b) => b.dataset.cat === location.hash.slice(1));
+		if (chip) { chip.click(); addEventListener('load', openFromHash); }
+	}
+	addEventListener('hashchange', openFromHash);
+</script>
+
+<style>
+	.toolbar { background: var(--paper); border-bottom: 1px solid var(--line); position: sticky; top: 73px; z-index: 30; }
+	.tb { display: flex; gap: 14px; align-items: center; justify-content: space-between; padding-top: 12px; padding-bottom: 12px; }
+	.chips { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; min-width: 0; }
+	.chips button { flex: none; font: 600 14px var(--font); color: var(--ink-2); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 8px 14px; cursor: pointer; }
+	.chips button span { font-family: var(--mono); font-size: 11px; color: var(--muted); margin-left: 4px; }
+	.chips button:hover { color: var(--ink); border-color: var(--ink-2); }
+	.chips button[aria-pressed="true"] { background: var(--navy); color: #fff; border-color: var(--navy); }
+	.chips button[aria-pressed="true"] span { color: var(--amber); }
+	.search input { width: 260px; font: 500 14.5px var(--font); color: var(--ink); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 9px 16px; outline: none; }
+	.search input:focus { border-color: var(--blue); background: #fff; }
+
+	.catalogue { padding-top: 64px; }
+	.group { scroll-margin-top: 80px; }
+	.group + .group { margin-top: 56px; }
+	.g-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px 24px; flex-wrap: wrap; padding-bottom: 14px; margin-bottom: 18px; border-bottom: 1px solid var(--line); }
+	.g-head h2 { font-size: clamp(24px, 2.8vw, 30px); margin: 0; }
+	.g-head p { margin: 0; color: var(--ink-2); }
+	.grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+	.card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px; display: flex; flex-direction: column; transition: border-color .2s, box-shadow .2s; }
+	.card:hover { border-color: var(--blue); box-shadow: 0 20px 36px -28px rgba(15,42,74,.45); }
+	.card h3 { font-size: 17px; line-height: 1.25; }
+	.desc { color: var(--ink-2); font-size: 14.5px; margin: 8px 0 14px; flex: 1; }
+	dl { margin: 0; display: grid; gap: 10px; font-size: 13.5px; }
+	dt { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+	dd { margin: 0; color: var(--ink); }
+	.tags { display: flex; flex-wrap: wrap; gap: 6px; }
+	.tags span { background: var(--blue-soft); color: var(--blue); font-weight: 600; font-size: 12.5px; border-radius: 6px; padding: 3px 8px; }
+	.ask { display: inline-flex; gap: 6px; align-items: center; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); font-weight: 700; font-size: 14px; color: var(--blue); }
+	.ask:hover { gap: 10px; }
+	.empty { background: var(--paper); border: 1px dashed var(--line); border-radius: var(--radius); padding: 28px; color: var(--ink-2); text-align: center; }
+	.empty a { color: var(--blue); font-weight: 700; }
+	.custom { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; background: var(--navy); color: var(--on-navy-2); border-radius: 20px; padding: 40px; margin-top: 64px; }
+	.custom h2 { color: #fff; margin: 0; font-size: clamp(24px, 3vw, 32px); }
+	.custom p { margin: 10px 0 0; max-width: 620px; }
+	@media (max-width: 1150px) { .grid { grid-template-columns: repeat(3, 1fr); } }
+	@media (max-width: 860px) {
+		.toolbar { top: 72px; }
+		.group { scroll-margin-top: 120px; } /* plus html scroll-padding: clears header + two-row toolbar */
+		.tb { flex-direction: column; align-items: stretch; gap: 10px; }
+		.search input { width: 100%; }
+		.grid { grid-template-columns: 1fr 1fr; }
+	}
+	@media (max-width: 560px) { .grid { grid-template-columns: 1fr; } .custom { padding: 28px 22px; } }
+</style>

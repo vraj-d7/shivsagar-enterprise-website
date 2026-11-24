@@ -104,7 +104,7 @@ const homeServices = services.slice(0, 7); // lead card spans two columns: 7 car
 					<span class="eyebrow">Industries & applications</span>
 					<h2>Parts for the machines<br />that keep India running.</h2>
 				</div>
-				<a href="/industries/" class="btn btn-line">All industries <Icon name="arrow" stroke={2.4} /></a>
+				<div class="head-btns"><a href="/products/" class="btn btn-navy">Browse products <Icon name="arrow" stroke={2.4} /></a><a href="/industries/" class="btn btn-line">All industries</a></div>
 			</div>
 			<IndustryTabs />
 		</div>
@@ -168,6 +168,7 @@ const homeServices = services.slice(0, 7); // lead card spans two columns: 7 car
 	.about-pts div { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
 	.about-pts b { display: block; }
 	.about-pts span { font-size: 14.5px; color: var(--ink-2); }
+	.head-btns { display: flex; gap: 10px; flex-wrap: wrap; }
 	.blog-band { padding-top: 0; }
 	.blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
 	@media (max-width: 1050px) { .hero-grid, .about-grid { grid-template-columns: 1fr; } .about-grid { gap: 20px; } .blog-grid { grid-template-columns: 1fr 1fr; } }

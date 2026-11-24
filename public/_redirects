@@ -2,7 +2,8 @@
 /about-us/ /about/ 301
 /contact-us/ /contact/ 301
 /terms-and-conditions/ /terms/ 301
-/shop/ / 301
+/shop/ /products/ 301
+/product/* /products/ 301
 /category/* /blog/ 301
 /author/* /blog/ 301
 /service/injection-molding/ /services/injection-moulding/ 301

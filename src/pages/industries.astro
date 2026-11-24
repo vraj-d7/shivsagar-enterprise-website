@@ -5,6 +5,8 @@ import IndustryArt from '../components/IndustryArt.astro';
 import Enquiry from '../components/Enquiry.astro';
 import Icon from '../components/Icon.astro';
 import { industries } from '../data/site';
+// Which /products/ category each industry links to.
+const productCat: Record<string, string> = { motors: 'motor', pumps: 'pump', conveyors: 'conveyor', dairy: 'food', chemical: 'chemical', automotive: 'engineering' };
 ---
 <Layout title="Industries & applications" description="Plastic and rubber components for electric motors, pumps, conveyors, dairy, chemical and automotive industries — in PP, HDPE, nylon, ABS, PBT, PTFE, PVDF, EPDM and silicone.">
 	<PageHero crumb="Industries" eyebrow="Industries & applications" lede="We take pride in the wide spectrum of industries we serve. Our moulded components are integral parts of equipment in many sectors — and by combining material expertise with application know-how, we tailor each part to its industry's requirements.">
@@ -27,7 +29,10 @@ import { industries } from '../data/site';
 						<p>{ind.body}</p>
 						<ul class="parts">{ind.parts.map((p) => <li>{p}</li>)}</ul>
 						<p class="mat">{ind.materials}</p>
-						<a class="ask" href="/contact/">Ask about a part like this <Icon name="arrow" size={16} stroke={2.4} /></a>
+						<div class="asks">
+							<a class="ask" href={`/products/#${productCat[ind.id]}`}>See products <Icon name="arrow" size={16} stroke={2.4} /></a>
+							<a class="ask muted" href="/contact/#enquiry">Ask about a part</a>
+						</div>
 					</div>
 				</article>
 			))}
@@ -55,6 +60,8 @@ import { industries } from '../data/site';
 	.ind-body > p:not(.mat) { font-size: 15.5px; }
 	.ask { display: inline-flex; gap: 8px; align-items: center; margin-top: 20px; font-weight: 700; color: var(--blue); }
 	.ask:hover { gap: 12px; }
+	.asks { display: flex; gap: 22px; flex-wrap: wrap; align-items: center; }
+	.ask.muted { color: var(--ink-2); }
 	.list .ind-panel:nth-child(even) .ind-art { order: 2; border-right: 0; border-left: 1px solid var(--line); }
 	.custom { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; background: var(--navy); color: var(--on-navy-2); border-radius: 20px; padding: 40px; }
 	.custom h2 { color: #fff; margin: 0; font-size: clamp(26px, 3vw, 34px); }

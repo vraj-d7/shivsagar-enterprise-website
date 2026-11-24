@@ -45,6 +45,10 @@ const { heading = 'Get a quote for your part.' } = Astro.props;
 	const form = document.getElementById('quote-form') as HTMLFormElement | null;
 	if (form) {
 		const error = form.querySelector<HTMLElement>('.error')!;
+		// Arriving from a product's "Ask for a quote" link (/contact/?product=…): start the message with it.
+		const product = new URLSearchParams(location.search).get('product')?.slice(0, 120);
+		const msg = form.elements.namedItem('message') as HTMLTextAreaElement;
+		if (product && !msg.value) msg.value = `Product: ${product}\nMaterial: \nQuantity per month: \nDetails: `;
 		form.addEventListener('submit', (e) => {
 			e.preventDefault();
 			const data = Object.fromEntries(new FormData(form)) as Record<string, string>;
