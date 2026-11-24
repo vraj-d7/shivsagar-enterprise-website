@@ -54,7 +54,8 @@ import { industries } from '../data/site';
 	.jump a { flex: none; font-weight: 600; font-size: 14px; color: var(--ink-2); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; }
 	.jump a:hover { color: var(--ink); border-color: var(--ink-2); }
 	.list { display: grid; gap: 20px; }
-	.ind-panel { scroll-margin-top: 150px; }
+	.ind-panel { scroll-margin-top: 72px; } /* plus the 88px html scroll-padding: clears header + jump bar */
+	.mat-bg :global(#materials) { scroll-margin-top: 56px; }
 	.ind-body h2 { font-size: 28px; margin: 0; }
 	.ask { display: inline-flex; gap: 8px; align-items: center; margin-top: 20px; font-weight: 700; color: var(--blue); }
 	.ask:hover { gap: 12px; }

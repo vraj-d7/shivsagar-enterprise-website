@@ -57,6 +57,7 @@ const org = {
 		<main id="main" tabindex="-1"><slot /></main>
 		<Footer />
 		<script>
+			import '../scripts/smooth-scroll';
 			const els = document.querySelectorAll('.reveal');
 			if ('IntersectionObserver' in window) {
 				const io = new IntersectionObserver(
