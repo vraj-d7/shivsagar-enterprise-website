@@ -1,0 +1,18 @@
+---
+import { why } from '../data/site';
+---
+<section class="section">
+	<div class="wrap">
+		<div class="head-row reveal">
+			<div>
+				<span class="eyebrow">Why Shiv Sagar</span>
+				<h2>Local roots. Global reach.</h2>
+			</div>
+		</div>
+		<div class="why-grid">
+			{why.map((w, i) => (
+				<div class="why reveal"><span class="k">{String(i + 1).padStart(2, '0')}</span><h3>{w.title}</h3><p>{w.text}</p></div>
+			))}
+		</div>
+	</div>
+</section>

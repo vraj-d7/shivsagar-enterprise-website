@@ -1,0 +1,61 @@
+---
+import type { Industry } from '../data/site';
+interface Props { art: Industry['art'] }
+const { art } = Astro.props;
+---
+<svg viewBox="0 0 240 200" aria-hidden="true">
+	{art === 'fan' && (
+		<Fragment>
+			<circle cx="120" cy="100" r="80" fill="#fff" stroke="#c9d7ef" stroke-width="2" />
+			<g fill="#2f6fe4">
+				<animateTransform attributeName="transform" type="rotate" values="0 120 100;360 120 100" dur="6s" repeatCount="indefinite" />
+				<path d="M120 100 C 100 60 110 34 132 30 C 140 56 134 80 120 100z" />
+				<path d="M120 100 C 160 80 186 90 190 112 C 164 120 140 114 120 100z" />
+				<path d="M120 100 C 140 140 130 166 108 170 C 100 144 106 120 120 100z" />
+				<path d="M120 100 C 80 120 54 110 50 88 C 76 80 100 86 120 100z" />
+			</g>
+			<circle cx="120" cy="100" r="14" fill="#0f2a4a" />
+		</Fragment>
+	)}
+	{art === 'pump' && (
+		<Fragment>
+			<path d="M60 100a60 60 0 1 0 120 0a60 60 0 1 0 -120 0" fill="#fff" stroke="#c9d7ef" stroke-width="2" />
+			<path d="M170 70h50v30h-40" fill="#fff" stroke="#c9d7ef" stroke-width="2" />
+			<g stroke="#2f6fe4" stroke-width="7" stroke-linecap="round" fill="none">
+				<animateTransform attributeName="transform" type="rotate" values="0 120 100;-360 120 100" dur="3s" repeatCount="indefinite" />
+				<path d="M120 100 q-6 -26 8 -40" /><path d="M120 100 q26 -6 40 8" /><path d="M120 100 q6 26 -8 40" /><path d="M120 100 q-26 6 -40 -8" />
+			</g>
+			<circle cx="120" cy="100" r="10" fill="#0f2a4a" />
+		</Fragment>
+	)}
+	{art === 'conveyor' && (
+		<Fragment>
+			<rect x="20" y="70" width="200" height="22" rx="11" fill="#c9d7ef" />
+			<g fill="#fff" stroke="#2f6fe4" stroke-width="3"><circle cx="50" cy="110" r="16" /><circle cx="100" cy="110" r="16" /><circle cx="150" cy="110" r="16" /><circle cx="200" cy="110" r="16" /></g>
+			<rect x="40" y="40" width="44" height="30" rx="4" fill="#ffb703"><animate attributeName="x" values="-50;240" dur="4s" repeatCount="indefinite" /></rect>
+		</Fragment>
+	)}
+	{art === 'dairy' && (
+		<Fragment>
+			<rect x="40" y="60" width="160" height="110" rx="10" fill="#fff" stroke="#c9d7ef" stroke-width="2" />
+			<g fill="#eaf1fd" stroke="#2f6fe4" stroke-width="2"><rect x="56" y="40" width="26" height="60" rx="8" /><rect x="92" y="40" width="26" height="60" rx="8" /><rect x="128" y="40" width="26" height="60" rx="8" /><rect x="164" y="40" width="26" height="60" rx="8" /></g>
+			<path d="M40 120h160M40 145h160" stroke="#c9d7ef" stroke-width="2" />
+		</Fragment>
+	)}
+	{art === 'chemical' && (
+		<Fragment>
+			<path d="M20 100h70M150 100h70" stroke="#c9d7ef" stroke-width="18" />
+			<path d="M90 70h60v60H90z" fill="#fff" stroke="#2f6fe4" stroke-width="3" />
+			<path d="M120 70V40M100 40h40" stroke="#0f2a4a" stroke-width="6" stroke-linecap="round" />
+			<circle cx="120" cy="100" r="14" fill="#ffb703" />
+		</Fragment>
+	)}
+	{art === 'auto' && (
+		<Fragment>
+			<circle cx="80" cy="100" r="34" fill="#fff" stroke="#2f6fe4" stroke-width="3" />
+			<circle cx="80" cy="100" r="12" fill="#0f2a4a" />
+			<rect x="140" y="60" width="70" height="80" rx="14" fill="#fff" stroke="#c9d7ef" stroke-width="2" />
+			<circle cx="175" cy="100" r="18" fill="#ffb703" />
+		</Fragment>
+	)}
+</svg>

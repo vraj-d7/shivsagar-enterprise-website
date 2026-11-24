@@ -1,0 +1,67 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Why from '../components/Why.astro';
+import Process from '../components/Process.astro';
+import Enquiry from '../components/Enquiry.astro';
+import { site, stats } from '../data/site';
+---
+<Layout title="About us" description={`Shiv Sagar Enterprise has made plastic and rubber moulded components in GIDC V.U. Nagar, Anand since ${site.since}.`}>
+	<PageHero crumb="About" eyebrow={`Since ${site.since}`}>
+		Moulding for Indian industry <span>since {site.since}.</span>
+	</PageHero>
+
+	<section class="section">
+		<div class="wrap story">
+			<div class="reveal">
+				<span class="eyebrow">Our story</span>
+				<h2>A family-run workshop that grew with its customers.</h2>
+			</div>
+			<div class="story-text reveal">
+				<!-- CONFIRM: founder name, early history and current team size with the owner before launch. -->
+				<p>Shiv Sagar Enterprise started in {site.since} in GIDC V.U. Nagar, Anand, making plastic parts for the electric motor makers around it. Fan blades, terminal boxes and caps are still a big part of what we do.</p>
+				<p>As customers asked for more, we added rubber moulding, in-house mould design and tooling, machining and assembly. Today we supply pump makers, conveyor builders, dairies, chemical plants and engineering firms across India, and we're equipped for export orders.</p>
+				<p>What hasn't changed is how we work: we look at the part, recommend the right material and mould, and make every batch match the sample you approved.</p>
+			</div>
+		</div>
+	</section>
+
+	<section class="numbers">
+		<dl class="wrap">
+			{stats.map((s) => <div><dt>{s.value}<em>{s.unit}</em></dt><dd>{s.label}</dd></div>)}
+			<div><dt>5,000<em>+</em></dt><dd>rubber parts per day</dd></div>
+			<div><dt>10<em>+</em></dt><dd>plastics and rubbers</dd></div>
+		</dl>
+	</section>
+
+	<Why />
+	<Process />
+	<div style="height:100px" aria-hidden="true"></div>
+	<Enquiry heading="Let's talk about your part." />
+</Layout>
+
+<style>
+	.story { display: grid; grid-template-columns: 1fr 1.2fr; gap: 56px; }
+	.story-text p { color: var(--ink-2); font-size: 17px; margin: 0 0 18px; }
+	.story-text p:first-child { font-size: 20px; color: var(--ink); font-weight: 500; }
+	.numbers { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+	.numbers dl { display: grid; grid-template-columns: repeat(6, 1fr); margin: 0 auto; }
+	.numbers div { padding: 36px 16px; border-right: 1px solid var(--line); }
+	.numbers div:last-child { border-right: 0; }
+	dt { font-size: 32px; font-weight: 800; letter-spacing: -.03em; line-height: 1.2; }
+	dt em { font-style: normal; color: var(--amber); }
+	dd { margin: 0; font-size: 14px; color: var(--ink-2); }
+	@media (max-width: 1050px) {
+		.story { grid-template-columns: 1fr; gap: 24px; }
+		.numbers dl { grid-template-columns: repeat(3, 1fr); }
+		.numbers div:nth-child(3) { border-right: 0; }
+		.numbers div:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
+	}
+	@media (max-width: 600px) {
+		.numbers dl { grid-template-columns: 1fr 1fr; }
+		.numbers div { padding: 24px 12px; border-bottom: 1px solid var(--line); }
+		.numbers div:nth-child(3) { border-right: 1px solid var(--line); }
+		.numbers div:nth-child(even) { border-right: 0; }
+		.numbers div:nth-last-child(-n+2) { border-bottom: 0; }
+	}
+</style>

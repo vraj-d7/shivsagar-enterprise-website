@@ -1,0 +1,19 @@
+---
+import { steps } from '../data/site';
+---
+<section class="section process" id="process">
+	<div class="wrap">
+		<div class="head-row reveal">
+			<div>
+				<span class="eyebrow">How we work</span>
+				<h2>Drawing in.<br />Parts out.</h2>
+			</div>
+			<p class="lede">Send a drawing, a sample or just an idea. We'll take it from there.</p>
+		</div>
+		<ol class="steps reveal">
+			{steps.map((s, i) => (
+				<li class="step"><span class="n">{String(i + 1).padStart(2, '0')}</span><h3>{s.title}</h3><p>{s.text}</p></li>
+			))}
+		</ol>
+	</div>
+</section>

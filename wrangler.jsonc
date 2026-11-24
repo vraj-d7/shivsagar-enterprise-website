@@ -1,0 +1,12 @@
+// Cloudflare deployment: the built site in dist/ is served as static files by a Cloudflare Worker.
+// Deploy with: npm run deploy
+{
+	"$schema": "node_modules/wrangler/config-schema.json",
+	"name": "shivsagar-enterprise",
+	"compatibility_date": "2026-11-01",
+	"assets": {
+		"directory": "./dist",
+		// Unknown pages get dist/404.html with a real 404 status.
+		"not_found_handling": "404-page"
+	}
+}

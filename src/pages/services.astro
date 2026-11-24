@@ -1,0 +1,55 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import Process from '../components/Process.astro';
+import Enquiry from '../components/Enquiry.astro';
+import { services } from '../data/site';
+---
+<Layout title="Services" description="Plastic injection moulding, rubber moulded parts, mould design and tooling, motor components, machining and assembly — all under one roof at Shiv Sagar Enterprise, Anand.">
+	<PageHero crumb="Services" eyebrow="What we do" lede="One supplier for the whole job — mould design, tooling, moulding, machining and assembly, so your part goes from drawing to delivery without being passed between vendors.">
+		From mould design to <span>finished part.</span>
+	</PageHero>
+
+	<section class="section">
+		<div class="wrap list">
+			{services.map((s, i) => (
+				<article class="item reveal" id={s.slug}>
+					<div class="item-head">
+						<span class="num">{String(i + 1).padStart(2, '0')}</span>
+						<div class="ic"><Icon name={s.icon} /></div>
+					</div>
+					<div class="item-body">
+						<h2>{s.title}</h2>
+						<p>{s.body}</p>
+					</div>
+					<ul class="item-points">
+						{s.points.map((p) => <li><Icon name="check" size={16} stroke={2.6} />{p}</li>)}
+					</ul>
+				</article>
+			))}
+		</div>
+	</section>
+
+	<Process />
+	<div style="height:100px" aria-hidden="true"></div>
+	<Enquiry heading="Have a part in mind?" />
+</Layout>
+
+<style>
+	.list { display: grid; gap: 16px; }
+	.item { display: grid; grid-template-columns: 120px 1.4fr 1fr; gap: 32px; align-items: start; background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 36px; scroll-margin-top: 100px; }
+	.item:target { border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-soft); }
+	.item-head { display: grid; gap: 14px; }
+	.num { font-family: var(--mono); font-weight: 700; color: var(--blue); font-size: 13px; }
+	.item h2 { font-size: clamp(24px, 2.6vw, 30px); margin: 0; }
+	.item-body p { color: var(--ink-2); margin: 12px 0 0; }
+	.item-points { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+	.item-points li { display: flex; gap: 10px; align-items: center; font-weight: 600; font-size: 15px; }
+	.item-points :global(svg) { color: var(--blue); flex: none; }
+	@media (max-width: 900px) {
+		.item { grid-template-columns: 1fr; gap: 18px; padding: 28px 22px; }
+		.item-head { display: flex; align-items: center; justify-content: space-between; }
+		.item-head .ic { margin: 0; }
+	}
+</style>

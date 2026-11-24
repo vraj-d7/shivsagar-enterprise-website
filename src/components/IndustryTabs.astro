@@ -1,0 +1,49 @@
+---
+import IndustryArt from './IndustryArt.astro';
+import { industries } from '../data/site';
+---
+<div class="ind" data-ind>
+	<div class="ind-tabs reveal" role="tablist" aria-label="Industries">
+		{industries.map((ind, i) => (
+			<button class="ind-tab" role="tab" id={`tab-${ind.id}`} aria-selected={i === 0 ? 'true' : 'false'} aria-controls={`panel-${ind.id}`} tabindex={i === 0 ? 0 : -1} data-id={ind.id}>{ind.tab}</button>
+		))}
+	</div>
+	{industries.map((ind, i) => (
+		<div class="ind-panel reveal" role="tabpanel" id={`panel-${ind.id}`} aria-labelledby={`tab-${ind.id}`} hidden={i !== 0}>
+			<div class="ind-art"><IndustryArt art={ind.art} /></div>
+			<div class="ind-body">
+				<h3>{ind.title}</h3>
+				<p>{ind.intro}</p>
+				<ul class="parts">{ind.parts.map((p) => <li>{p}</li>)}</ul>
+				<p class="mat">{ind.materials}</p>
+			</div>
+		</div>
+	))}
+</div>
+
+<script>
+	document.querySelectorAll<HTMLElement>('[data-ind]').forEach((root) => {
+		const tabs = [...root.querySelectorAll<HTMLButtonElement>('[role="tab"]')];
+		const show = (tab: HTMLButtonElement, focus = false) => {
+			tabs.forEach((t) => {
+				const on = t === tab;
+				t.setAttribute('aria-selected', String(on));
+				t.tabIndex = on ? 0 : -1;
+				const panel = document.getElementById(t.getAttribute('aria-controls')!)!;
+				panel.hidden = !on;
+				if (on) panel.classList.add('in', 'is-shown');
+			});
+			if (focus) tab.focus();
+		};
+		tabs.forEach((t, i) => {
+			t.addEventListener('click', () => show(t));
+			t.addEventListener('keydown', (e) => {
+				const d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+				if (d) { e.preventDefault(); show(tabs[(i + d + tabs.length) % tabs.length], true); }
+			});
+		});
+		// Open the industry named in the URL hash, e.g. /components/#pumps
+		const fromHash = tabs.find((t) => t.dataset.id === location.hash.slice(1));
+		if (fromHash) show(fromHash);
+	});
+</script>

@@ -1,0 +1,53 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import Enquiry from '../components/Enquiry.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../data/site';
+const mapSrc = 'https://maps.google.com/maps?q=GIDC+V.U.+Nagar,+Anand,+Gujarat&z=15&output=embed';
+---
+<Layout title="Contact & quotes" description={`Call ${site.phone} or send your drawing for a quote. Shiv Sagar Enterprise, ${site.address}.`}>
+	<PageHero crumb="Contact" eyebrow="Get a quote" lede="Send a drawing, a sample or a photo of the part with the material and quantity you need. We usually reply within one working day.">
+		Tell us about <span>your part.</span>
+	</PageHero>
+
+	<section class="cards-wrap">
+		<div class="wrap cards">
+			<a class="card" href={site.phoneHref}><Icon name="phone" /><small>Call</small><b>{site.phone}</b></a>
+			<a class="card" href={site.whatsappHref} target="_blank" rel="noopener"><Icon name="chat" /><small>WhatsApp</small><b>Send photos &amp; drawings</b></a>
+			<a class="card" href={`mailto:${site.email}`}><Icon name="mail" /><small>Email</small><b>{site.email}</b></a>
+			<div class="card"><Icon name="clock" /><small>Hours</small><b>{site.hours}</b></div>
+		</div>
+	</section>
+
+	<div class="section-gap" aria-hidden="true"></div>
+	<Enquiry heading="Request a quote." />
+
+	<section class="map-sec">
+		<div class="wrap map-grid">
+			<div>
+				<span class="eyebrow">Visit the factory</span>
+				<h2>{site.name}</h2>
+				<p class="lede">{site.address}</p>
+				<a class="btn btn-navy" href={site.mapHref} target="_blank" rel="noopener" style="margin-top:24px">Open in Google Maps <Icon name="arrow" stroke={2.4} /></a>
+			</div>
+			<iframe class="map" src={mapSrc} title="Map showing GIDC V.U. Nagar, Anand" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.cards-wrap { margin-top: -40px; position: relative; }
+	.cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+	.card { background: var(--paper); border: 1px solid var(--line); border-radius: 16px; padding: 22px; display: grid; gap: 4px; box-shadow: 0 20px 40px -30px rgba(15,42,74,.4); transition: border-color .2s, transform .2s; }
+	a.card:hover { border-color: var(--blue); transform: translateY(-3px); }
+	.card :global(svg) { color: var(--blue); margin-bottom: 10px; }
+	.card small { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+	.card b { font-size: 15.5px; overflow-wrap: anywhere; }
+	.section-gap { height: 64px; }
+	.map-sec { padding: 0 0 100px; }
+	.map-grid { display: grid; grid-template-columns: 1fr 1.5fr; gap: 40px; align-items: center; }
+	.map { width: 100%; height: 380px; border: 1px solid var(--line); border-radius: 20px; background: var(--paper); }
+	@media (max-width: 1050px) { .cards { grid-template-columns: 1fr 1fr; } .map-grid { grid-template-columns: 1fr; } }
+	@media (max-width: 600px) { .cards { grid-template-columns: 1fr; } .map { height: 300px; } .map-sec { padding-bottom: 76px; } }
+</style>

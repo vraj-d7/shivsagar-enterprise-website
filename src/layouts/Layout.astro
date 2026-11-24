@@ -1,0 +1,72 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+import '@fontsource/plus-jakarta-sans/400.css';
+import '@fontsource/plus-jakarta-sans/500.css';
+import '@fontsource/plus-jakarta-sans/600.css';
+import '@fontsource/plus-jakarta-sans/700.css';
+import '@fontsource/plus-jakarta-sans/800.css';
+import '@fontsource/space-mono/400.css';
+import '@fontsource/space-mono/700.css';
+import '../styles/global.css';
+
+interface Props { title?: string; description?: string; noindex?: boolean }
+const { title, description = site.description, noindex = false } = Astro.props;
+const fullTitle = title ? `${title} | ${site.name}` : `${site.name} — Precision plastic & rubber moulding since ${site.since}`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const org = {
+	'@context': 'https://schema.org',
+	'@type': 'LocalBusiness',
+	name: site.name,
+	description: site.description,
+	url: Astro.site?.toString(),
+	telephone: site.phone.replace(/\s/g, ''),
+	email: site.email,
+	foundingDate: String(site.since),
+	address: { '@type': 'PostalAddress', streetAddress: 'I-43, GIDC, V.U. Nagar', addressLocality: 'Anand', addressRegion: 'Gujarat', addressCountry: 'IN' },
+};
+---
+<!doctype html>
+<html lang="en-IN">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<title>{fullTitle}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonical} />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="sitemap" href="/sitemap-index.xml" />
+		<meta name="theme-color" content="#0f2a4a" />
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={fullTitle} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonical} />
+		<meta property="og:site_name" content={site.name} />
+		{noindex && <meta name="robots" content="noindex" />}
+		<script type="application/ld+json" set:html={JSON.stringify(org)} />
+		<script is:inline>
+			(function () {
+				if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion');
+			})();
+		</script>
+	</head>
+	<body>
+		<a class="skip" href="#main">Skip to content</a>
+		<Header />
+		<main id="main" tabindex="-1"><slot /></main>
+		<Footer />
+		<script>
+			const els = document.querySelectorAll('.reveal');
+			if ('IntersectionObserver' in window) {
+				const io = new IntersectionObserver(
+					(es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
+					{ threshold: 0.12 },
+				);
+				els.forEach((el) => io.observe(el));
+			} else {
+				els.forEach((el) => el.classList.add('in'));
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,71 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import IndustryArt from '../components/IndustryArt.astro';
+import Materials from '../components/Materials.astro';
+import Enquiry from '../components/Enquiry.astro';
+import Icon from '../components/Icon.astro';
+import { industries } from '../data/site';
+---
+<Layout title="Components & materials" description="Plastic and rubber components for electric motors, pumps, conveyors, dairy, chemical and automotive industries — in PP, HDPE, Nylon, ABS, PTFE, PVDF, EPDM and silicone.">
+	<PageHero crumb="Components" eyebrow="Components we make" lede="Fan blades, impellers, rollers, seals, gaskets and housings — made to your drawing or sample, in the material your application needs.">
+		Parts for the machines that <span>keep India running.</span>
+	</PageHero>
+
+	<nav class="jump" aria-label="Jump to industry">
+		<div class="wrap">
+			{industries.map((i) => <a href={`#${i.id}`}>{i.tab}</a>)}
+			<a href="#materials">Materials</a>
+		</div>
+	</nav>
+
+	<section class="section">
+		<div class="wrap list">
+			{industries.map((ind) => (
+				<article class="ind-panel reveal" id={ind.id}>
+					<div class="ind-art"><IndustryArt art={ind.art} /></div>
+					<div class="ind-body">
+						<h2>{ind.title}</h2>
+						<p>{ind.intro}</p>
+						<ul class="parts">{ind.parts.map((p) => <li>{p}</li>)}</ul>
+						<p class="mat">{ind.materials}</p>
+						<a class="ask" href="/contact/">Ask about a part like this <Icon name="arrow" size={16} stroke={2.4} /></a>
+					</div>
+				</article>
+			))}
+			<div class="custom reveal">
+				<div>
+					<h2>Don't see your part?</h2>
+					<p>Most of what we make is custom. Send a drawing, a sample or a photo and we'll tell you how we'd make it.</p>
+				</div>
+				<a href="/contact/" class="btn btn-amber">Send your drawing <Icon name="arrow" stroke={2.4} /></a>
+			</div>
+		</div>
+	</section>
+
+	<div class="mat-bg"><Materials detailed /></div>
+	<div style="height:100px" aria-hidden="true"></div>
+	<Enquiry />
+</Layout>
+
+<style>
+	.jump { background: var(--paper); border-bottom: 1px solid var(--line); position: sticky; top: 73px; z-index: 30; }
+	.jump .wrap { display: flex; gap: 8px; overflow-x: auto; padding-top: 12px; padding-bottom: 12px; scrollbar-width: none; }
+	.jump a { flex: none; font-weight: 600; font-size: 14px; color: var(--ink-2); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; }
+	.jump a:hover { color: var(--ink); border-color: var(--ink-2); }
+	.list { display: grid; gap: 20px; }
+	.ind-panel { scroll-margin-top: 150px; }
+	.ind-body h2 { font-size: 28px; margin: 0; }
+	.ask { display: inline-flex; gap: 8px; align-items: center; margin-top: 20px; font-weight: 700; color: var(--blue); }
+	.ask:hover { gap: 12px; }
+	.list .ind-panel:nth-child(even) .ind-art { order: 2; border-right: 0; border-left: 1px solid var(--line); }
+	.custom { display: flex; justify-content: space-between; align-items: center; gap: 24px; flex-wrap: wrap; background: var(--navy); color: var(--on-navy-2); border-radius: 20px; padding: 40px; }
+	.custom h2 { color: #fff; margin: 0; font-size: clamp(26px, 3vw, 34px); }
+	.custom p { margin: 10px 0 0; max-width: 560px; }
+	.mat-bg { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+	@media (max-width: 1050px) {
+		.list .ind-panel:nth-child(even) .ind-art { order: 0; border-left: 0; border-bottom: 1px solid var(--line); }
+	}
+	@media (max-width: 860px) { .jump { top: 72px; } }
+	@media (max-width: 600px) { .custom { padding: 28px 22px; } }
+</style>

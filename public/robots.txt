@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://shivsagar-enterprise.vraj-d7.workers.dev/sitemap-index.xml

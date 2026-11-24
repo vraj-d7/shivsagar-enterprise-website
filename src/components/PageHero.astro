@@ -1,0 +1,12 @@
+---
+interface Props { crumb: string; eyebrow: string; lede?: string }
+const { crumb, eyebrow, lede } = Astro.props;
+---
+<section class="page-hero">
+	<div class="wrap">
+		<nav class="crumbs" aria-label="Breadcrumb"><a href="/">Home</a><span aria-hidden="true">/</span><span aria-current="page">{crumb}</span></nav>
+		<p class="eyebrow" style="margin:28px 0 0">{eyebrow}</p>
+		<h1><slot /></h1>
+		{lede && <p class="lede">{lede}</p>}
+	</div>
+</section>

@@ -1,0 +1,22 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+---
+<Layout title="Page not found" noindex>
+	<section class="page-hero nf">
+		<div class="wrap">
+			<p class="eyebrow">Error 404</p>
+			<h1>This part <span>isn't in stock.</span></h1>
+			<p class="lede">The page you were looking for has moved or doesn't exist.</p>
+			<div class="actions">
+				<a href="/" class="btn btn-amber">Back to home <Icon name="arrow" stroke={2.4} /></a>
+				<a href="/contact/" class="btn btn-ghost">Contact us</a>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.nf { padding: 120px 0 140px; }
+	.actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 32px; }
+</style>

@@ -1,0 +1,47 @@
+---
+import { site, services, industries } from '../data/site';
+const year = new Date().getFullYear();
+---
+<footer>
+	<div class="wrap">
+		<div class="foot">
+			<div>
+				<b class="fname">{site.name}</b>
+				<p>Precision plastic injection-moulded and rubber components. Serving Indian industry since {site.since}.</p>
+			</div>
+			<div>
+				<h4>Services</h4>
+				<ul>{services.slice(0, 4).map((s) => <li><a href={`/services/#${s.slug}`}>{s.title}</a></li>)}</ul>
+			</div>
+			<div>
+				<h4>Industries</h4>
+				<ul>{industries.slice(0, 5).map((i) => <li><a href={`/components/#${i.id}`}>{i.tab}</a></li>)}</ul>
+			</div>
+			<div>
+				<h4>Contact</h4>
+				<ul>
+					<li><a href={site.phoneHref}>{site.phone}</a></li>
+					<li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+					<li><a href={site.mapHref} target="_blank" rel="noopener">{site.address}</a></li>
+				</ul>
+			</div>
+		</div>
+		<div class="foot-bottom">
+			<span>© {year} {site.name}. All rights reserved.</span>
+			<span>{site.tagline}</span>
+		</div>
+	</div>
+</footer>
+
+<style>
+	footer { background: var(--navy); color: var(--on-navy-2); padding: 54px 0 32px; font-size: 14px; }
+	.foot { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1.2fr; gap: 36px; }
+	.fname { color: #fff; font-size: 18px; }
+	.foot p { max-width: 300px; margin: 10px 0 0; }
+	h4 { color: #fff; margin: 0 0 14px; font-size: 15px; }
+	ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 9px; }
+	a:hover { color: #fff; }
+	.foot-bottom { margin-top: 40px; padding-top: 22px; border-top: 1px solid var(--navy-line); display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; font-size: 13px; }
+	@media (max-width: 1050px) { .foot { grid-template-columns: 1fr 1fr; } }
+	@media (max-width: 600px) { .foot { grid-template-columns: 1fr; } }
+</style>
