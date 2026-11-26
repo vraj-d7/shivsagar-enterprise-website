@@ -1,7 +1,9 @@
 ---
 import { testimonials } from '../data/site';
+interface Props { tone?: 'plain' | 'paper' }
+const { tone = 'paper' } = Astro.props;
 ---
-<section class="section tst-sec">
+<section class:list={['section', 'tst-sec', { 'tone-paper': tone === 'paper' }]}>
 	<div class="wrap">
 		<div class="head-row reveal">
 			<div>
@@ -22,7 +24,7 @@ import { testimonials } from '../data/site';
 </section>
 
 <style>
-	.tst-sec { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+	.tst-sec:not(.tone-paper) .tst { background: var(--paper); }
 	.tst-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 	.tst { margin: 0; background: var(--bg); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; display: flex; flex-direction: column; }
 	.mark { font-size: 56px; line-height: .8; font-weight: 800; color: var(--amber); }

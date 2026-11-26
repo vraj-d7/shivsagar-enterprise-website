@@ -1,21 +1,23 @@
 ---
+// Home page. Section order follows the atcrubbers.com home page:
+// hero → what we make → why choose us → services & support → industries → testimonials → CTA → footer.
 import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
+import IndustryArt from '../components/IndustryArt.astro';
 import IndustryTabs from '../components/IndustryTabs.astro';
-import Process from '../components/Process.astro';
 import Why from '../components/Why.astro';
-import Enquiry from '../components/Enquiry.astro';
-import Capacity from '../components/Capacity.astro';
 import Testimonials from '../components/Testimonials.astro';
-import Faq from '../components/Faq.astro';
-import PostCard from '../components/PostCard.astro';
-import { site, stats, faq } from '../data/site';
+import Enquiry from '../components/Enquiry.astro';
+import { site, stats } from '../data/site';
 import { services } from '../data/services';
-import { getPosts } from '../data/blog';
+import { categories, products } from '../data/products';
 import { Image } from 'astro:assets';
 import heroPhoto from '../assets/home/hero-moulding.jpg';
-const latest = (await getPosts()).slice(0, 3);
-const homeServices = services; // lead card spans two columns: 7 services fill two rows of four
+import servicePhoto from '../assets/home/service-mould.jpg';
+
+// Photo used for each product category card (files in src/assets/industries/).
+const catPhoto: Record<string, string> = { motor: 'motors', pump: 'pumps', conveyor: 'conveyors', food: 'dairy', chemical: 'chemical', rubber: 'rubber', engineering: 'automotive' };
+const productCats = categories.map((c) => ({ ...c, items: products.filter((p) => p.category === c.id) }));
 ---
 <Layout>
 	<!-- HERO -->
@@ -26,8 +28,8 @@ const homeServices = services; // lead card spans two columns: 7 services fill t
 				<h1>Your partner in <span>precision moulding.</span></h1>
 				<p class="lede">Top-quality plastic and rubber moulding with 25+ years of manufacturing excellence. We combine scale and precision to craft custom components for motors, pumps, conveyors, dairy, chemical and automotive industries — from mould design to mass production, under one roof.</p>
 				<div class="hero-actions">
-					<a href="/contact/" class="btn btn-amber">Send your drawing for a quote <Icon name="arrow" stroke={2.4} /></a>
-					<a href="/services/" class="btn btn-ghost">Our services</a>
+					<a href="/products/" class="btn btn-amber">Explore products <Icon name="arrow" stroke={2.4} /></a>
+					<a href="/contact/#enquiry" class="btn btn-ghost">Request a quote</a>
 				</div>
 				<ul class="hero-ticks">
 					<li><Icon name="check" size={16} stroke={2.6} />In-house mould design</li>
@@ -51,84 +53,83 @@ const homeServices = services; // lead card spans two columns: 7 services fill t
 		</div>
 	</section>
 
-	<!-- SERVICES -->
-	<section class="section" id="services">
+	<!-- WHAT WE MAKE -->
+	<section class="section" id="products">
 		<div class="wrap">
 			<div class="head-row reveal">
 				<div>
-					<span class="eyebrow">What we do</span>
-					<h2>From mould design<br />to finished part.</h2>
+					<span class="eyebrow">What we make</span>
+					<h2>Our product range</h2>
+					<p class="lede">Plastic and rubber parts for motors, pumps, conveyors, dairy, chemical and engineering applications — each made to your drawing or sample.</p>
 				</div>
-				<a href="/services/" class="btn btn-line">All {services.length} services <Icon name="arrow" stroke={2.4} /></a>
+				<a href="/products/" class="btn btn-line">All {products.length} products <Icon name="arrow" stroke={2.4} /></a>
 			</div>
-			<div class="svc-grid">
-				{homeServices.map((s) => (
-					<a href={`/services/${s.slug}/`} class:list={['svc', 'reveal', { lead: s.lead }]}>
-						<div>
-							<div class="ic"><Icon name={s.icon} /></div>
-							<h3>{s.title}</h3>
-							<p>{s.short}</p>
+			<div class="cat-grid">
+				{productCats.map((c) => (
+					<a class="cat reveal" href={`/products/#${c.id}`}>
+						<div class="cat-photo"><IndustryArt id={catPhoto[c.id]} /></div>
+						<div class="cat-body">
+							<h3>{c.name}</h3>
+							<p>{c.blurb}</p>
+							<ul>{c.items.slice(0, 3).map((p) => <li>{p.name}</li>)}</ul>
+							<span class="more">View {c.items.length} products <Icon name="arrow" size={15} stroke={2.4} /></span>
 						</div>
-						{s.lead && <ul class="dots">{s.includes.slice(0, 4).map((p) => <li>{p}</li>)}</ul>}
 					</a>
 				))}
+				<a class="cat cat-custom reveal" href="/contact/#enquiry">
+					<div class="cat-body">
+						<span class="eyebrow">Custom parts</span>
+						<h3>Don't see your part?</h3>
+						<p>Most of what we make is custom. Send a drawing, sample or photo with the material and quantity, and we'll quote for it.</p>
+						<span class="more">Send your drawing <Icon name="arrow" size={15} stroke={2.4} /></span>
+					</div>
+				</a>
 			</div>
 		</div>
 	</section>
 
-	<!-- ABOUT -->
-	<section class="section about-band">
-		<div class="wrap about-grid">
-			<div class="reveal">
-				<span class="eyebrow">About us</span>
-				<h2>25 years of excellence in plastic moulding.</h2>
+	<!-- WHY CHOOSE US -->
+	<Why tone="paper" />
+
+	<!-- SERVICES & SUPPORT -->
+	<section class="section" id="services">
+		<div class="wrap svc-split">
+			<div class="svc-media reveal">
+				<Image src={servicePhoto} alt="Operator working at an open injection mould on a moulding machine" widths={[560, 900, 1200]} sizes="(max-width: 1050px) 100vw, 560px" />
+				<div class="svc-badge"><b>One roof</b><span>Mould design, tooling, moulding, machining &amp; assembly</span></div>
 			</div>
 			<div class="reveal">
-				<p class="lede">Shiv Sagar Enterprise is a trusted manufacturer of plastic injection-moulded and rubber components since {site.since}. Based in Gujarat, we specialise in precision-engineered components for diverse industrial needs. With over 100 satisfied clients, we deliver quality, reliability and consistency across India.</p>
-				<div class="about-pts">
-					<div><b>Precision engineered</b><span>Custom-moulded parts with exceptional dimensional accuracy.</span></div>
-					<div><b>On time, every time</b><span>Streamlined logistics and proactive tracking for prompt, reliable delivery.</span></div>
-				</div>
-				<a href="/about/" class="btn btn-navy">More about us <Icon name="arrow" stroke={2.4} /></a>
+				<span class="eyebrow">Services &amp; support</span>
+				<h2>From mould design to finished part.</h2>
+				<p class="lede">One supplier for the whole job — so your part goes from drawing to delivery without being passed between vendors. Our team helps with material choice, mould design, trials and volume production.</p>
+				<ul class="checklist">
+					{services.map((s) => (
+						<li><a href={`/services/${s.slug}/`}><Icon name="check" size={16} stroke={2.6} />{s.title}</a></li>
+					))}
+				</ul>
+				<a href="/services/" class="btn btn-navy">All services <Icon name="arrow" stroke={2.4} /></a>
 			</div>
 		</div>
 	</section>
 
-	<Capacity />
-
-	<!-- COMPONENTS -->
+	<!-- INDUSTRIES WE SERVE -->
 	<section class="section comps" id="industries">
 		<div class="wrap">
 			<div class="head-row reveal">
 				<div>
-					<span class="eyebrow">Industries & applications</span>
+					<span class="eyebrow">Industries we serve</span>
 					<h2>Parts for the machines<br />that keep India running.</h2>
 				</div>
-				<div class="head-btns"><a href="/products/" class="btn btn-navy">Browse products <Icon name="arrow" stroke={2.4} /></a><a href="/industries/" class="btn btn-line">All industries</a></div>
+				<a href="/industries/" class="btn btn-line">All industries <Icon name="arrow" stroke={2.4} /></a>
 			</div>
 			<IndustryTabs />
 		</div>
 	</section>
 
-	<Process />
-	<Why />
-	<Testimonials />
-	<Faq items={faq} lede="Whether your industry is listed or you have a unique application, we're equipped to deliver the right solution." />
+	<!-- CLIENT TESTIMONIALS -->
+	<Testimonials tone="plain" />
 
-	<!-- BLOG -->
-	<section class="section blog-band">
-		<div class="wrap">
-			<div class="head-row reveal">
-				<div>
-					<span class="eyebrow">News, tips & more</span>
-					<h2>Latest from the blog.</h2>
-				</div>
-				<a href="/blog/" class="btn btn-line">All posts <Icon name="arrow" stroke={2.4} /></a>
-			</div>
-			<div class="blog-grid">{latest.map((p) => <PostCard post={p} />)}</div>
-		</div>
-	</section>
-
+	<!-- CTA -->
 	<Enquiry heading="Get your free custom moulding quote." />
 </Layout>
 
@@ -160,20 +161,42 @@ const homeServices = services; // lead card spans two columns: 7 services fill t
 	.hs dt em { font-style: normal; color: var(--amber); }
 	.hs dd { margin: 0; font-size: 14px; color: var(--on-navy-2); }
 
-	.about-band { background: var(--paper); border-bottom: 1px solid var(--line); }
-	.about-grid { display: grid; grid-template-columns: 1fr 1.3fr; gap: 56px; align-items: start; }
-	.about-grid h2 { margin-top: 12px; }
-	.about-grid .lede { margin-top: 0; max-width: none; }
-	.about-pts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 26px 0 28px; }
-	.about-pts div { background: var(--bg); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; }
-	.about-pts b { display: block; }
-	.about-pts span { font-size: 14.5px; color: var(--ink-2); }
-	.head-btns { display: flex; gap: 10px; flex-wrap: wrap; }
-	.blog-band { padding-top: 0; }
-	.blog-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
-	@media (max-width: 1050px) { .hero-grid, .about-grid { grid-template-columns: 1fr; } .about-grid { gap: 20px; } .blog-grid { grid-template-columns: 1fr 1fr; } }
-	@media (max-width: 600px) { .about-pts, .blog-grid { grid-template-columns: 1fr; } }
+	/* What we make */
+	.cat-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+	.cat { display: flex; flex-direction: column; background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; transition: transform .25s, box-shadow .25s, border-color .25s; }
+	.cat:hover { transform: translateY(-5px); border-color: var(--blue); box-shadow: 0 24px 40px -28px rgba(15,42,74,.45); }
+	.cat-photo { position: relative; aspect-ratio: 4 / 3; background: var(--blue-soft); overflow: hidden; }
+	.cat-photo :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+	.cat:hover .cat-photo :global(img) { transform: scale(1.04); }
+	.cat-body { padding: 20px 22px 22px; display: flex; flex-direction: column; flex: 1; }
+	.cat h3 { font-size: 18px; }
+	.cat p { color: var(--ink-2); font-size: 14.5px; margin: 8px 0 12px; }
+	.cat ul { list-style: none; padding: 0; margin: 0 0 16px; display: grid; gap: 5px; font-size: 13.5px; color: var(--ink); flex: 1; }
+	.cat li { display: flex; gap: 8px; align-items: center; }
+	.cat li::before { content: ""; width: 6px; height: 6px; border-radius: 2px; background: var(--blue); flex: none; }
+	.more { display: inline-flex; gap: 6px; align-items: center; font-weight: 700; font-size: 14px; color: var(--blue); }
+	.cat-custom { background: var(--navy); border-color: var(--navy); color: var(--on-navy-2); justify-content: center; }
+	.cat-custom .eyebrow { color: var(--amber); }
+	.cat-custom h3 { color: #fff; font-size: 22px; margin-top: 10px; }
+	.cat-custom p { color: var(--on-navy-2); flex: 1; }
+	.cat-custom .more { color: var(--amber); }
+
+	/* Services & support */
+	.svc-split { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: center; }
+	.svc-media { position: relative; border-radius: 22px; overflow: hidden; aspect-ratio: 4 / 3; background: var(--blue-soft); }
+	.svc-media :global(img) { display: block; width: 100%; height: 100%; object-fit: cover; }
+	.svc-badge { position: absolute; left: 16px; bottom: 16px; background: var(--amber); color: var(--navy); border-radius: 14px; padding: 12px 16px; max-width: 280px; }
+	.svc-badge b { display: block; font-size: 18px; }
+	.svc-badge span { font-size: 13.5px; color: #4a3a05; }
+	.checklist { list-style: none; padding: 0; margin: 26px 0 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px 20px; }
+	.checklist a { display: flex; gap: 10px; align-items: center; font-weight: 600; font-size: 15px; }
+	.checklist a:hover { color: var(--blue); }
+	.checklist :global(svg) { color: var(--blue); flex: none; }
+
+	@media (max-width: 1150px) { .cat-grid { grid-template-columns: repeat(3, 1fr); } }
+	@media (max-width: 1050px) { .hero-grid, .svc-split { grid-template-columns: 1fr; } .svc-split { gap: 32px; } }
 	@media (max-width: 860px) {
+		.cat-grid { grid-template-columns: 1fr 1fr; }
 		.hs, .hs:first-child { padding: 22px 14px; }
 		.hs:first-child { padding-left: 0; }
 	}
@@ -182,5 +205,6 @@ const homeServices = services; // lead card spans two columns: 7 services fill t
 		.hero-photo figcaption { left: 10px; bottom: 10px; padding: 8px 12px; }
 		.hero-photo figcaption span { display: none; }
 		.hs dt { font-size: 28px; }
+		.cat-grid, .checklist { grid-template-columns: 1fr; }
 	}
 </style>

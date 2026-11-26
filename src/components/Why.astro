@@ -1,11 +1,13 @@
 ---
 import { why } from '../data/site';
+interface Props { tone?: 'plain' | 'paper' }
+const { tone = 'plain' } = Astro.props;
 ---
-<section class="section">
+<section class:list={['section', { 'tone-paper': tone === 'paper' }]}>
 	<div class="wrap">
 		<div class="head-row reveal">
 			<div>
-				<span class="eyebrow">Why Shiv Sagar</span>
+				<span class="eyebrow">Why choose us</span>
 				<h2>Local roots. Global reach.</h2>
 			</div>
 		</div>

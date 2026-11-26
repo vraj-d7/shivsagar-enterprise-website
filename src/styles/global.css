@@ -164,3 +164,7 @@ h2 { font-size: clamp(30px, 4.2vw, 48px); margin-top: 12px; }
 	.ind-body, .enq-left, .form { padding: 28px 22px; }
 	.process { margin: 0 8px; border-radius: 22px; }
 }
+
+/* Alternating section background (white band) */
+.tone-paper { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.tone-paper .why { background: var(--bg); }
