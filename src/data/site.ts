@@ -29,8 +29,6 @@ export const nav = [
 
 export const stats = [
 	{ value: '25', unit: '+', label: 'years of moulding' },
-	{ value: '40,000', unit: '+', label: 'plastic parts per day' },
-	{ value: '1M', unit: '+', label: 'components manufactured' },
 	// CONFIRM: the old home and about pages say 100+ clients; the old services page says 450+.
 	{ value: '100', unit: '+', label: 'clients across India' },
 ];

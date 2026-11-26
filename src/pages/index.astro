@@ -152,7 +152,7 @@ const homeServices = services.slice(0, 7); // lead card spans two columns: 7 car
 	.hero-photo figcaption span { color: var(--on-navy-2); font-size: 13px; }
 
 	.hero-stats { background: rgba(0,0,0,.18); border-top: 1px solid var(--navy-line); position: relative; }
-	.hero-stats dl { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0 auto; }
+	.hero-stats dl { display: grid; grid-template-columns: repeat(2, 1fr); margin: 0 auto; }
 	.hs { padding: 28px 20px; border-right: 1px solid var(--navy-line); }
 	.hs:first-child { padding-left: 0; }
 	.hs:last-child { border-right: 0; }
@@ -174,11 +174,8 @@ const homeServices = services.slice(0, 7); // lead card spans two columns: 7 car
 	@media (max-width: 1050px) { .hero-grid, .about-grid { grid-template-columns: 1fr; } .about-grid { gap: 20px; } .blog-grid { grid-template-columns: 1fr 1fr; } }
 	@media (max-width: 600px) { .about-pts, .blog-grid { grid-template-columns: 1fr; } }
 	@media (max-width: 860px) {
-		.hero-stats dl { grid-template-columns: 1fr 1fr; }
-		.hs, .hs:first-child { padding: 22px 14px; border-bottom: 1px solid var(--navy-line); }
-		.hs:nth-child(odd) { padding-left: 0; }
-		.hs:nth-child(2) { border-right: 0; }
-		.hs:nth-child(n+3) { border-bottom: 0; }
+		.hs, .hs:first-child { padding: 22px 14px; }
+		.hs:first-child { padding-left: 0; }
 	}
 	@media (max-width: 600px) {
 		.hero { padding-top: 56px; }

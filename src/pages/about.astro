@@ -78,7 +78,7 @@ const pillars = [
 	.two b { display: block; }
 	.two span { font-size: 14.5px; color: var(--ink-2); }
 	.numbers { background: var(--paper); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-	.numbers dl { display: grid; grid-template-columns: repeat(6, 1fr); margin: 0 auto; }
+	.numbers dl { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0 auto; }
 	.numbers div { padding: 36px 16px; border-right: 1px solid var(--line); }
 	.numbers div:last-child { border-right: 0; }
 	dt { font-size: 32px; font-weight: 800; letter-spacing: -.03em; line-height: 1.2; }
@@ -92,16 +92,12 @@ const pillars = [
 	@media (max-width: 1050px) {
 		.story { grid-template-columns: 1fr; gap: 24px; }
 		.pillars { grid-template-columns: 1fr 1fr; }
-		.numbers dl { grid-template-columns: repeat(3, 1fr); }
-		.numbers div:nth-child(3) { border-right: 0; }
-		.numbers div:nth-child(-n+3) { border-bottom: 1px solid var(--line); }
+		.numbers dl { grid-template-columns: 1fr 1fr; }
+		.numbers div:nth-child(even) { border-right: 0; }
+		.numbers div:nth-child(-n+2) { border-bottom: 1px solid var(--line); }
 	}
 	@media (max-width: 600px) {
 		.two, .pillars { grid-template-columns: 1fr; }
-		.numbers dl { grid-template-columns: 1fr 1fr; }
-		.numbers div { padding: 24px 12px; border-bottom: 1px solid var(--line); }
-		.numbers div:nth-child(3) { border-right: 1px solid var(--line); }
-		.numbers div:nth-child(even) { border-right: 0; }
-		.numbers div:nth-last-child(-n+2) { border-bottom: 0; }
+		.numbers div { padding: 24px 12px; }
 	}
 </style>
