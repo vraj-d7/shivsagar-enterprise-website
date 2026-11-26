@@ -16,7 +16,7 @@ import heroPhoto from '../assets/home/hero-moulding.jpg';
 import servicePhoto from '../assets/home/service-mould.jpg';
 
 // Photo used for each product category card (files in src/assets/industries/).
-const catPhoto: Record<string, string> = { motor: 'motors', pump: 'pumps', conveyor: 'conveyors', food: 'dairy', chemical: 'chemical', rubber: 'rubber', engineering: 'automotive' };
+const catPhoto: Record<string, string> = { motor: 'motors', pump: 'pumps', conveyor: 'conveyors', food: 'dairy', chemical: 'chemical', engineering: 'automotive' };
 const productCats = categories.map((c) => ({ ...c, items: products.filter((p) => p.category === c.id) }));
 ---
 <Layout>
@@ -175,6 +175,8 @@ const productCats = categories.map((c) => ({ ...c, items: products.filter((p) =>
 	.cat li { display: flex; gap: 8px; align-items: center; }
 	.cat li::before { content: ""; width: 6px; height: 6px; border-radius: 2px; background: var(--blue); flex: none; }
 	.more { display: inline-flex; gap: 6px; align-items: center; font-weight: 700; font-size: 14px; color: var(--blue); }
+	/* Custom card fills the rest of the last row: 6 categories + this = 8 cells at 4 columns. */
+	.cat-custom { grid-column: span 2; }
 	.cat-custom { background: var(--navy); border-color: var(--navy); color: var(--on-navy-2); justify-content: center; }
 	.cat-custom .eyebrow { color: var(--amber); }
 	.cat-custom h3 { color: #fff; font-size: 22px; margin-top: 10px; }
@@ -193,7 +195,7 @@ const productCats = categories.map((c) => ({ ...c, items: products.filter((p) =>
 	.checklist a:hover { color: var(--blue); }
 	.checklist :global(svg) { color: var(--blue); flex: none; }
 
-	@media (max-width: 1150px) { .cat-grid { grid-template-columns: repeat(3, 1fr); } }
+	@media (max-width: 1150px) { .cat-grid { grid-template-columns: repeat(3, 1fr); } .cat-custom { grid-column: 1 / -1; } }
 	@media (max-width: 1050px) { .hero-grid, .svc-split { grid-template-columns: 1fr; } .svc-split { gap: 32px; } }
 	@media (max-width: 860px) {
 		.cat-grid { grid-template-columns: 1fr 1fr; }
@@ -206,5 +208,6 @@ const productCats = categories.map((c) => ({ ...c, items: products.filter((p) =>
 		.hero-photo figcaption span { display: none; }
 		.hs dt { font-size: 28px; }
 		.cat-grid, .checklist { grid-template-columns: 1fr; }
+		.cat-custom { grid-column: auto; }
 	}
 </style>

@@ -10,7 +10,6 @@ export const categories: Category[] = [
 	{ id: 'conveyor', name: 'Conveyor parts', blurb: 'Light, quiet, corrosion-resistant parts for material handling.' },
 	{ id: 'food', name: 'Dairy & food parts', blurb: 'Food-grade parts that are easy to clean and safe for contact.' },
 	{ id: 'chemical', name: 'Chemical-resistant parts', blurb: 'Parts that stand up to acids, solvents and high temperatures.' },
-	{ id: 'rubber', name: 'Rubber parts', blurb: 'Seals, gaskets, diaphragms and mounts in EPDM, silicone and more.' },
 	{ id: 'engineering', name: 'Engineering & automotive', blurb: 'Knobs, clips, covers and custom parts for machines and vehicles.' },
 ];
 
@@ -52,12 +51,6 @@ export const products: Product[] = [
 	{ name: 'Pipe fittings', category: 'chemical', desc: 'Fittings that tolerate harsh chemicals and high temperatures.', usedIn: 'Chemical and industrial plants' },
 	{ name: 'Encapsulation parts', category: 'chemical', desc: 'Moulded parts that enclose and protect components in corrosive environments.', usedIn: 'Laboratories, industrial equipment' },
 
-	// Rubber parts
-	{ name: 'O-rings', category: 'rubber', desc: 'Moulded O-rings for leak-proof sealing in pumps, tanks and fittings.', usedIn: 'Pumps, dairy, chemical' },
-	{ name: 'Seals & sealing gaskets', category: 'rubber', desc: 'Custom seals and gaskets, including food-grade versions for milk tanks.', usedIn: 'Pumps, dairy and food plants' },
-	{ name: 'Diaphragms', category: 'rubber', desc: 'Flexible diaphragms for pumps and valves.', usedIn: 'Pumps, valves' },
-	{ name: 'Rubber bushings', category: 'rubber', desc: 'Robust bushings that absorb load and vibration.', usedIn: 'Automotive, engineering' },
-	{ name: 'Vibration-damping mounts', category: 'rubber', desc: 'Rubber mounts that reduce vibration and noise.', usedIn: 'Motors, machinery' },
 
 	// Engineering & automotive
 	{ name: 'Plastic knobs', category: 'engineering', desc: 'Precision knobs with a good finish for machines and equipment.', usedIn: 'Automotive, agriculture, engineering' },

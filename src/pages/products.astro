@@ -9,7 +9,7 @@ import { categories, products } from '../data/products';
 const groups = categories.map((c) => ({ ...c, items: products.filter((p) => p.category === c.id) }));
 const quoteHref = (name: string) => `/contact/?product=${encodeURIComponent(name)}#enquiry`;
 ---
-<Layout title="Products" description="Plastic injection-moulded and rubber products from Shiv Sagar Enterprise: motor fan blades and housings, pump impellers, idler rollers, dairy fittings, chemical-resistant valve parts, O-rings, gaskets and more — made to your drawing or sample.">
+<Layout title="Products" description="Plastic injection-moulded and rubber products from Shiv Sagar Enterprise: motor fan blades and housings, pump impellers, idler rollers, dairy fittings, chemical-resistant valve parts, knobs, clips and more — made to your drawing or sample.">
 	<PageHero crumb="Products" eyebrow="What we make" lede="Plastic and rubber parts for motors, pumps, conveyors, dairy, chemical and engineering applications. Every part is made to your drawing or sample, in the material your application needs.">
 		Moulded parts, <span>made to order.</span>
 	</PageHero>
@@ -100,7 +100,7 @@ const quoteHref = (name: string) => `/contact/?product=${encodeURIComponent(name
 	}));
 	search.addEventListener('input', apply);
 
-	// Open a category from the URL, e.g. /products/#rubber, on load and when the hash changes.
+	// Open a category from the URL, e.g. /products/#pump, on load and when the hash changes.
 	const openFromHash = () => {
 		const chip = chips.find((b) => b.dataset.cat && b.dataset.cat === location.hash.slice(1));
 		if (!chip) return false;

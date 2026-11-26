@@ -12,7 +12,7 @@ Redesign and rebuild of [shivsagarenterprise.com](https://shivsagarenterprise.co
 | About | `src/pages/about.astro` | `/about-us/` |
 | Services | `src/pages/services/index.astro` | `/services/` |
 | 7 service pages | `src/pages/services/[slug].astro` + `src/data/services.ts` | `/service/…/` |
-| Products (29, filterable) | `src/pages/products.astro` + `src/data/products.ts` | `/shop/` |
+| Products (24, filterable) | `src/pages/products.astro` + `src/data/products.ts` | `/shop/` |
 | Industries | `src/pages/industries.astro` | (home page section) |
 | Blog + 9 posts | `src/pages/blog/` + `src/content/blog/*.md` | `/blog/`, `/2025/06/…/` |
 | Contact | `src/pages/contact.astro` | `/contact-us/` |
