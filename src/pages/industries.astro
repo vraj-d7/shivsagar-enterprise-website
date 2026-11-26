@@ -32,7 +32,7 @@ const productCat: Record<string, string> = { motors: 'motor', pumps: 'pump', con
 						<p>{ind.body}</p>
 						<ul class="parts">{ind.parts.map((p) => <li>{p}</li>)}</ul>
 						<div class="asks">
-							<a class="ask" href={`/products/#${productCat[ind.id]}`}>See products <Icon name="arrow" size={16} stroke={2.4} /></a>
+							{productCat[ind.id] && <a class="ask" href={`/products/#${productCat[ind.id]}`}>See products <Icon name="arrow" size={16} stroke={2.4} /></a>}
 							<a class="ask muted" href="/contact/#enquiry">Ask about a part</a>
 						</div>
 					</div>

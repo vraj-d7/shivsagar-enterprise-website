@@ -84,6 +84,14 @@ export const industries: Industry[] = [
 		body: 'We also serve the automotive, agriculture and general engineering sectors with high-quality moulded components. Our range includes precision plastic knobs, durable clips, functional housing covers and robust rubber bushings — made from high-grade materials to strict specifications for durability and reliability in use.',
 		parts: ['Plastic knobs', 'Clips', 'Housing covers', 'Rubber bushings'],
 	},
+	// CONFIRM: Bakelite isn't on the old site. Check the parts list with the owner, and swap in a real photo
+	// (src/assets/industries/bakelite.jpg) when one is available.
+	{
+		id: 'bakelite', tab: 'Bakelite products', title: 'Bakelite (phenolic) moulded parts',
+		intro: 'Heat-resistant, electrically insulating parts moulded in Bakelite.',
+		body: 'Bakelite is a thermoset plastic that stays rigid and keeps its shape at high temperatures, and it is an excellent electrical insulator. We mould Bakelite components for electrical, appliance and engineering applications where parts must withstand heat and insulate safely — made to your drawing or sample.',
+		parts: ['Electrical switch & socket parts', 'Terminal blocks', 'Handles & knobs', 'Insulator parts', 'Custom parts to drawing'],
+	},
 ];
 
 export const steps = [

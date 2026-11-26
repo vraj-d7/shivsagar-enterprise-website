@@ -59,6 +59,7 @@ Search the code for `CONFIRM`:
 
 - **Factory location.** The old contact page says GIDC V.U. Nagar, Anand. The about page, injection moulding page, terms (court jurisdiction) and several blog posts say Ankleshwar, and one post also mentions Ahmedabad. The site currently shows the Anand address.
 - **Client count.** The old site says 100+ on the home and about pages but 450+ on the services page. Using 100+.
+- **Bakelite products.** Added on request; not on the old site. Confirm the parts list (switch & socket parts, terminal blocks, handles & knobs, insulators) and send a real photo to replace `src/assets/industries/bakelite.jpg`.
 - **Testimonials.** Three quotes (Rajesh Mehta, Sneha Kulkarni, Dinesh Iyer). Make sure these are real customers who agreed to be quoted.
 
 The original single-page design mockup is in `design/`.
