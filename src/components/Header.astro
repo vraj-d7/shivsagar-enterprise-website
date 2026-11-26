@@ -21,9 +21,7 @@ const path = Astro.url.pathname;
 		</a>
 		<nav class="links" id="links" aria-label="Main">
 			{nav.map((l) => <a href={l.href} aria-current={path === l.href ? 'page' : undefined}>{l.label}</a>)}
-			<a href="/contact/" class="btn btn-navy links-cta">Get a quote</a>
 		</nav>
-		<a href="/contact/" class="btn btn-navy nav-cta">Get a quote</a>
 		<button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false" aria-controls="links">
 			<Icon name="menu" size={18} class="i-open" /><Icon name="close" size={18} class="i-close" />
 		</button>
@@ -57,18 +55,15 @@ const path = Astro.url.pathname;
 	@media (max-width: 420px) { .logo :global(.logo-img) { height: 30px; } }
 	.links { display: flex; gap: 30px; font-weight: 600; font-size: 15px; color: var(--ink-2); }
 	.links a:not(.btn):hover, .links a[aria-current="page"] { color: var(--blue); }
-	.links-cta { display: none; }
-	.nav .btn { padding: 11px 18px; font-size: 14px; }
 	.menu-btn { display: none; width: 44px; height: 44px; border-radius: 10px; border: 1px solid var(--line); background: #fff; cursor: pointer; color: var(--ink); }
 	.menu-btn :global(.i-close) { display: none; }
 	.nav.open .menu-btn :global(.i-open) { display: none; }
 	.nav.open .menu-btn :global(.i-close) { display: block; }
 
 	@media (max-width: 860px) {
-		.links, .nav-cta, .topbar .hide-sm { display: none; }
+		.links, .topbar .hide-sm { display: none; }
 		.menu-btn { display: grid; place-items: center; }
-		.nav.open .links { display: flex; flex-direction: column; gap: 0; position: absolute; top: 72px; left: 0; right: 0; background: var(--bg); border-bottom: 1px solid var(--line); padding-bottom: 16px; box-shadow: 0 20px 30px -20px rgba(15,42,74,.3); }
+		.nav.open .links { display: flex; flex-direction: column; gap: 0; position: absolute; top: 72px; left: 0; right: 0; background: var(--bg); border-bottom: 1px solid var(--line); box-shadow: 0 20px 30px -20px rgba(15,42,74,.3); }
 		.nav.open .links a:not(.btn) { padding: 16px 24px; border-top: 1px solid var(--line); }
-		.nav.open .links-cta { display: inline-flex; margin: 16px 24px 0; justify-content: center; }
 	}
 </style>
