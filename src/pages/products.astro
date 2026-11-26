@@ -24,7 +24,7 @@ const quoteHref = (name: string) => `/contact/?product=${encodeURIComponent(name
 			</ScrollRow>
 			<label class="search">
 				<span class="sr-only">Search products</span>
-				<input type="search" id="product-search" placeholder="Search, e.g. impeller, EPDM" autocomplete="off" />
+				<input type="search" id="product-search" placeholder="Search, e.g. impeller, roller" autocomplete="off" />
 			</label>
 		</div>
 	</div>
@@ -39,11 +39,10 @@ const quoteHref = (name: string) => `/contact/?product=${encodeURIComponent(name
 					</div>
 					<ul class="grid">
 						{g.items.map((p) => (
-							<li class="card" data-search={`${p.name} ${p.desc} ${p.materials.join(' ')} ${p.usedIn} ${g.name}`.toLowerCase()}>
+							<li class="card" data-search={`${p.name} ${p.desc} ${p.usedIn} ${g.name}`.toLowerCase()}>
 								<h3>{p.name}</h3>
 								<p class="desc">{p.desc}</p>
 								<dl>
-									<div><dt>Materials</dt><dd class="tags">{p.materials.map((m) => <span>{m}</span>)}</dd></div>
 									<div><dt>Used in</dt><dd>{p.usedIn}</dd></div>
 								</dl>
 								<a class="ask" href={quoteHref(p.name)}>Ask for a quote <Icon name="arrow" size={15} stroke={2.4} /></a>
@@ -146,8 +145,6 @@ const quoteHref = (name: string) => `/contact/?product=${encodeURIComponent(name
 	dl { margin: 0; display: grid; gap: 10px; font-size: 13.5px; }
 	dt { font-family: var(--mono); font-size: 10.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
 	dd { margin: 0; color: var(--ink); }
-	.tags { display: flex; flex-wrap: wrap; gap: 6px; }
-	.tags span { background: var(--blue-soft); color: var(--blue); font-weight: 600; font-size: 12.5px; border-radius: 6px; padding: 3px 8px; }
 	.ask { display: inline-flex; gap: 6px; align-items: center; margin-top: 16px; padding-top: 14px; border-top: 1px solid var(--line); font-weight: 700; font-size: 14px; color: var(--blue); }
 	.ask:hover { gap: 10px; }
 	.empty { background: var(--paper); border: 1px dashed var(--line); border-radius: var(--radius); padding: 28px; color: var(--ink-2); text-align: center; }
