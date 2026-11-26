@@ -118,35 +118,6 @@ export const services: Service[] = [
 		],
 	},
 	{
-		slug: 'rubber-moulded-parts',
-		oldPath: '/service/custom-rubber-moulded-parts/',
-		icon: 'ring',
-		title: 'Custom rubber moulded parts',
-		short: 'Custom O-rings, seals, gaskets, diaphragms and bushings in EPDM, silicone and special compounds.',
-		headline: 'Rubber parts that seal, cushion and protect',
-		// The old site's rubber page was empty; this text is drawn from its home, about and blog pages.
-		intro: [
-			'Alongside plastics, Shiv Sagar Enterprise moulds custom rubber components — more than 5,000 rubber parts a day. One supplier for the plastic housing and the seal that goes in it.',
-			'We mould parts in a range of elastomers including EPDM, silicone, natural rubber and neoprene, choosing the compound for the conditions the part has to survive: water and steam, outdoor weather, heat, food contact or chemicals.',
-		],
-		sections: [
-			{
-				title: 'Where our rubber parts work',
-				body: 'Pumps rely on our O-rings, seals and diaphragms for leak-proof operation. Dairy and food plants use our food-grade silicone gaskets for hygienic, easy-clean sealing. Motor makers use vibration-damping rubber mounts and bushings, and engineering and automotive customers use our rubber bushings in demanding conditions.',
-			},
-		],
-		includesTitle: 'Rubber parts we make',
-		includes: ['O-rings', 'Seals & sealing gaskets', 'Diaphragms', 'Bushings', 'Vibration-damping mounts', 'Food-grade silicone parts', 'Custom profiles to drawing or sample'],
-		industries: ['Pumps & fluid handling', 'Dairy & food processing', 'Electric motors', 'Chemical & industrial equipment', 'Automotive & engineering'],
-		whyTitle: 'Why choose Shiv Sagar for rubber parts?',
-		why: ['5,000+ rubber parts a day', 'EPDM, silicone, natural rubber & neoprene', 'Food-grade options', 'Made to your drawing or sample', 'Plastic and rubber from one supplier'],
-		faq: [
-			{ q: 'Which rubber materials do you work with?', a: 'We mould EPDM, silicone (including food-grade), natural rubber, neoprene and special compounds selected for your application.' },
-			{ q: 'Can you make rubber parts for food and dairy equipment?', a: 'Yes. We make food-grade silicone and rubber parts such as sealing gaskets and O-rings that are durable, safe and easy to clean.' },
-			{ q: 'Can you match an existing part?', a: 'Yes. Send us a drawing or a sample of the part and we will develop a mould and compound to match it.' },
-		],
-	},
-	{
 		slug: 'mould-design',
 		oldPath: '/service/mould-design/',
 		icon: 'tool',

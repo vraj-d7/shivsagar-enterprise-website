@@ -15,7 +15,7 @@ import { getPosts } from '../data/blog';
 import { Image } from 'astro:assets';
 import heroPhoto from '../assets/home/hero-moulding.jpg';
 const latest = (await getPosts()).slice(0, 3);
-const homeServices = services.slice(0, 7); // lead card spans two columns: 7 cards fill two rows of four
+const homeServices = services; // lead card spans two columns: 7 services fill two rows of four
 ---
 <Layout>
 	<!-- HERO -->

@@ -9,7 +9,7 @@ Redesign and rebuild of [shivsagarenterprise.com](https://shivsagarenterprise.co
 | Home | `src/pages/index.astro` | `/` |
 | About | `src/pages/about.astro` | `/about-us/` |
 | Services | `src/pages/services/index.astro` | `/services/` |
-| 8 service pages | `src/pages/services/[slug].astro` + `src/data/services.ts` | `/service/…/` |
+| 7 service pages | `src/pages/services/[slug].astro` + `src/data/services.ts` | `/service/…/` |
 | Products (29, filterable) | `src/pages/products.astro` + `src/data/products.ts` | `/shop/` |
 | Industries | `src/pages/industries.astro` | (home page section) |
 | Blog + 9 posts | `src/pages/blog/` + `src/content/blog/*.md` | `/blog/`, `/2025/06/…/` |
@@ -22,7 +22,7 @@ Every old URL redirects to its new page (`public/_redirects`), so existing Googl
 ## Where to edit content
 
 - **Company details, stats, industries, materials, FAQ, testimonials:** `src/data/site.ts`
-- **Services (all 8 pages):** `src/data/services.ts`
+- **Services (all 7 pages):** `src/data/services.ts`
 - **Products:** `src/data/products.ts`. Each product's "Ask for a quote" button opens the contact form with the product already filled in.
 - **Blog posts:** one Markdown file each in `src/content/blog/`. To add a post, copy one, change the front matter, and put its image in `src/assets/blog/`.
 - **Terms:** `src/content/terms.md`
