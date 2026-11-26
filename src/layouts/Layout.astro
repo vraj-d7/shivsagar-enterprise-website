@@ -60,16 +60,71 @@ const org = {
 		<Footer />
 		<script>
 			import '../scripts/smooth-scroll';
-			const els = document.querySelectorAll('.reveal');
-			if ('IntersectionObserver' in window) {
-				const io = new IntersectionObserver(
-					(es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }),
-					{ threshold: 0.12 },
+		</script>
+
+		<!-- Load & scroll reveal, ported from atcrubbers.com. Inline so elements are tagged before first paint. -->
+		<script is:inline>
+			(() => {
+				const motion = document.documentElement.classList.contains('motion');
+				if (!motion || !('IntersectionObserver' in window)) {
+					document.querySelectorAll('.reveal').forEach((el) => el.classList.add('in'));
+					return;
+				}
+
+				// Fade up: hero copy, page heroes, headings, cards, lists and the footer.
+				const fadeUp = [
+					'.page-hero .wrap > *',
+					'.hero-grid > div:first-child > *',
+					'.hs',
+					'.g-head',
+					'.catalogue .card',
+					'.filters',
+					'.cards > .card',
+					'.intro-text > *',
+					'.map-grid > div',
+					'.side .box',
+					'.numbers dl > div',
+					'.steps > li',
+					'.foot > *',
+					'.foot-bottom',
+				];
+				// Zoom in: big photos and the map.
+				const zoom = ['.hero-photo', '.svc-media', '.map', '.body-wrap .cover'];
+
+				const mark = (selectors, extra) =>
+					document.querySelectorAll(selectors.join(',')).forEach((el) => el.classList.add('reveal', ...extra));
+				mark(fadeUp, []);
+				mark(zoom, ['reveal--zoom']);
+
+				// Reveal a batch of elements in page order, staggered 90ms apart.
+				const reveal = (els) =>
+					els
+						.sort((a, b) => (a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1))
+						.forEach((el, i) => {
+							el.style.setProperty('--reveal-delay', `${Math.min(i, 8) * 90}ms`);
+							el.classList.add('in');
+						});
+
+				const observer = new IntersectionObserver(
+					(entries) => {
+						const els = entries.filter((e) => e.isIntersecting).map((e) => e.target);
+						els.forEach((el) => observer.unobserve(el));
+						reveal(els);
+					},
+					{ threshold: 0.12, rootMargin: '0px 0px -6% 0px' },
 				);
-				els.forEach((el) => io.observe(el));
-			} else {
-				els.forEach((el) => el.classList.add('in'));
-			}
+
+				// Whatever is already on screen animates in straight away; the rest waits until it's scrolled into view.
+				// (Some browsers deliver the first IntersectionObserver callback late, which would leave the hero blank.)
+				const all = [...document.querySelectorAll('.reveal')];
+				const fold = innerHeight * 0.94;
+				const onScreen = all.filter((el) => {
+					const r = el.getBoundingClientRect();
+					return r.width > 0 && r.top < fold && r.bottom > 0;
+				});
+				reveal(onScreen);
+				all.filter((el) => !onScreen.includes(el)).forEach((el) => observer.observe(el));
+			})();
 		</script>
 	</body>
 </html>
