@@ -8,6 +8,9 @@
   },
   "scripts": {
     "dev": "astro dev",
+    "start": "astro dev --background --port 4330",
+    "stop": "astro dev stop",
+    "status": "astro dev status",
     "build": "astro build",
     "preview": "astro preview",
     "deploy": "astro build && wrangler deploy",

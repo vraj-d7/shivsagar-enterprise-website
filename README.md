@@ -32,7 +32,10 @@ Every old URL redirects to its new page (`public/_redirects`), so existing Googl
 
 ```sh
 npm install      # first time only
-npm run dev      # local preview at http://localhost:4321
+npm start        # run the site in the background at http://localhost:4330 (or double-click start-local-site.cmd)
+npm run stop     # stop it
+npm run status   # is it running?
+npm run dev      # run in this terminal instead (stops when you close it)
 npm run build    # build to dist/
 npm run deploy   # build and publish to Cloudflare (needs `npx wrangler login` once)
 ```
