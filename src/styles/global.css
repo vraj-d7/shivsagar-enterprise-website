@@ -97,7 +97,6 @@ h2 { font-size: clamp(30px, 4.2vw, 48px); margin-top: 12px; }
 .parts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; list-style: none; padding: 0; margin: 0; }
 .parts li { display: flex; gap: 10px; align-items: center; background: var(--bg); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; font-weight: 600; font-size: 14.5px; }
 .parts li::before { content: ""; width: 8px; height: 8px; border-radius: 2px; background: var(--blue); flex: none; }
-.ind-body .mat { margin: 22px 0 0; font-size: 13px; color: var(--muted); font-family: var(--mono); }
 
 /* Process */
 .process { background: var(--navy); color: var(--on-navy); border-radius: 28px; margin: 0 16px; }

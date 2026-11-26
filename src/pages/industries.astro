@@ -31,7 +31,6 @@ const productCat: Record<string, string> = { motors: 'motor', pumps: 'pump', con
 						<h2>{ind.title}</h2>
 						<p>{ind.body}</p>
 						<ul class="parts">{ind.parts.map((p) => <li>{p}</li>)}</ul>
-						<p class="mat">{ind.materials}</p>
 						<div class="asks">
 							<a class="ask" href={`/products/#${productCat[ind.id]}`}>See products <Icon name="arrow" size={16} stroke={2.4} /></a>
 							<a class="ask muted" href="/contact/#enquiry">Ask about a part</a>
@@ -61,7 +60,7 @@ const productCat: Record<string, string> = { motors: 'motor', pumps: 'pump', con
 	.list { display: grid; gap: 20px; }
 	.ind-panel { scroll-margin-top: 72px; } /* plus the 88px html scroll-padding: clears header + jump bar */
 	.ind-body h2 { font-size: 28px; margin: 0; }
-	.ind-body > p:not(.mat) { font-size: 15.5px; }
+	.ind-body > p { font-size: 15.5px; }
 	.ask { display: inline-flex; gap: 8px; align-items: center; margin-top: 20px; font-weight: 700; color: var(--blue); }
 	.ask:hover { gap: 12px; }
 	.asks { display: flex; gap: 22px; flex-wrap: wrap; align-items: center; }
