@@ -1,0 +1,57 @@
+---
+// Wraps a horizontally scrolling row (filter chips, jump links) and makes it obviously slidable:
+// a soft fade and an arrow button appear on whichever side has more items hidden.
+// The scrolling element inside the slot must carry the `data-scroll` attribute.
+import Icon from './Icon.astro';
+interface Props { label?: string }
+const { label = 'items' } = Astro.props;
+---
+<div class="srow" data-srow>
+	<button type="button" class="sr-btn prev" aria-label={`Scroll ${label} left`} tabindex="-1"><Icon name="arrow" size={16} stroke={2.4} /></button>
+	<slot />
+	<button type="button" class="sr-btn next" aria-label={`Scroll ${label} right`} tabindex="-1"><Icon name="arrow" size={16} stroke={2.4} /></button>
+</div>
+
+<script>
+	document.querySelectorAll<HTMLElement>('[data-srow]').forEach((row) => {
+		const track = row.querySelector<HTMLElement>('[data-scroll]');
+		if (!track) return;
+		const update = () => {
+			const max = track.scrollWidth - track.clientWidth;
+			row.classList.toggle('can-left', track.scrollLeft > 4);
+			row.classList.toggle('can-right', track.scrollLeft < max - 4);
+		};
+		const step = () => Math.max(160, track.clientWidth * 0.7);
+		row.querySelector('.prev')!.addEventListener('click', () => track.scrollBy({ left: -step(), behavior: 'smooth' }));
+		row.querySelector('.next')!.addEventListener('click', () => track.scrollBy({ left: step(), behavior: 'smooth' }));
+		track.addEventListener('scroll', update, { passive: true });
+		new ResizeObserver(update).observe(track);
+		// Mouse-wheel users: turn vertical wheel movement into sideways scrolling while over the row.
+		track.addEventListener('wheel', (e) => {
+			if (Math.abs(e.deltaY) <= Math.abs(e.deltaX) || track.scrollWidth <= track.clientWidth) return;
+			const max = track.scrollWidth - track.clientWidth;
+			if ((e.deltaY < 0 && track.scrollLeft <= 0) || (e.deltaY > 0 && track.scrollLeft >= max)) return;
+			e.preventDefault();
+			track.scrollLeft += e.deltaY;
+		}, { passive: false });
+		track.setAttribute('data-lenis-prevent-wheel', '');
+		update();
+	});
+</script>
+
+<style>
+	.srow { position: relative; display: flex; align-items: center; min-width: 0; flex: 1 1 auto; }
+	.srow > :global([data-scroll]) { scroll-behavior: smooth; }
+	/* Edge fades */
+	.srow::before, .srow::after { content: ""; position: absolute; top: 0; bottom: 0; width: 56px; pointer-events: none; opacity: 0; transition: opacity .2s; z-index: 1; }
+	.srow::before { left: 0; background: linear-gradient(90deg, var(--paper) 35%, transparent); }
+	.srow::after { right: 0; background: linear-gradient(270deg, var(--paper) 35%, transparent); }
+	.srow.can-left::before, .srow.can-right::after { opacity: 1; }
+	/* Arrow buttons */
+	.sr-btn { position: absolute; top: 50%; z-index: 2; width: 34px; height: 34px; margin-top: -17px; border-radius: 50%; border: 1px solid var(--line); background: var(--paper); color: var(--ink); display: grid; place-items: center; cursor: pointer; box-shadow: 0 6px 16px -8px rgba(15,42,74,.45); opacity: 0; visibility: hidden; transition: opacity .2s, visibility .2s, border-color .2s, color .2s; }
+	.sr-btn:hover { border-color: var(--blue); color: var(--blue); }
+	.sr-btn.prev { left: 0; }
+	.sr-btn.prev :global(svg) { transform: rotate(180deg); }
+	.sr-btn.next { right: 0; }
+	.srow.can-left .prev, .srow.can-right .next { opacity: 1; visibility: visible; }
+</style>

@@ -4,6 +4,7 @@ import PageHero from '../components/PageHero.astro';
 import IndustryArt from '../components/IndustryArt.astro';
 import Enquiry from '../components/Enquiry.astro';
 import Icon from '../components/Icon.astro';
+import ScrollRow from '../components/ScrollRow.astro';
 import { industries } from '../data/site';
 // Which /products/ category each industry links to.
 const productCat: Record<string, string> = { motors: 'motor', pumps: 'pump', conveyors: 'conveyor', dairy: 'food', chemical: 'chemical', automotive: 'engineering' };
@@ -15,7 +16,9 @@ const productCat: Record<string, string> = { motors: 'motor', pumps: 'pump', con
 
 	<nav class="jump" aria-label="Jump to industry">
 		<div class="wrap">
-			{industries.map((i) => <a href={`#${i.id}`}>{i.tab}</a>)}
+			<ScrollRow label="industries">
+				<div class="jump-track" data-scroll>{industries.map((i) => <a href={`#${i.id}`}>{i.tab}</a>)}</div>
+			</ScrollRow>
 		</div>
 	</nav>
 
@@ -51,7 +54,8 @@ const productCat: Record<string, string> = { motors: 'motor', pumps: 'pump', con
 
 <style>
 	.jump { background: var(--paper); border-bottom: 1px solid var(--line); position: sticky; top: 73px; z-index: 30; }
-	.jump .wrap { display: flex; gap: 8px; overflow-x: auto; padding-top: 12px; padding-bottom: 12px; scrollbar-width: none; }
+	.jump .wrap { display: flex; }
+	.jump-track { display: flex; gap: 8px; overflow-x: auto; padding: 12px 0; scrollbar-width: none; min-width: 0; }
 	.jump a { flex: none; font-weight: 600; font-size: 14px; color: var(--ink-2); background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; }
 	.jump a:hover { color: var(--ink); border-color: var(--ink-2); }
 	.list { display: grid; gap: 20px; }

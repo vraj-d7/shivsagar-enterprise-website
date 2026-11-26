@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import Icon from '../components/Icon.astro';
 import Enquiry from '../components/Enquiry.astro';
+import ScrollRow from '../components/ScrollRow.astro';
 import { categories, products } from '../data/products';
 
 const groups = categories.map((c) => ({ ...c, items: products.filter((p) => p.category === c.id) }));
@@ -15,10 +16,12 @@ const quoteHref = (name: string) => `/contact/?product=${encodeURIComponent(name
 
 	<div class="toolbar">
 		<div class="wrap tb">
-			<div class="chips" role="group" aria-label="Filter by category">
-				<button type="button" aria-pressed="true" data-cat="">All <span>{products.length}</span></button>
-				{groups.map((g) => <button type="button" aria-pressed="false" data-cat={g.id}>{g.name} <span>{g.items.length}</span></button>)}
-			</div>
+			<ScrollRow label="categories">
+				<div class="chips" role="group" aria-label="Filter by category" data-scroll>
+					<button type="button" aria-pressed="true" data-cat="">All <span>{products.length}</span></button>
+					{groups.map((g) => <button type="button" aria-pressed="false" data-cat={g.id}>{g.name} <span>{g.items.length}</span></button>)}
+				</div>
+			</ScrollRow>
 			<label class="search">
 				<span class="sr-only">Search products</span>
 				<input type="search" id="product-search" placeholder="Search, e.g. impeller, EPDM" autocomplete="off" />
